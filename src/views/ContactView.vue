@@ -1,6 +1,13 @@
 <template>
-  <NavBar />
-  <h2>Contact Page</h2>
+  <div class="home">
+    <NavBar />
+    <h2>Contact Page</h2>
+    <ul>
+      <li v-for="contact in contacts" :key="contact.id">
+        {{ contact.first_name }}
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -9,6 +16,47 @@ export default {
   name: "ContactPage",
   components: {
     NavBar,
+  },
+  data() {
+    return {
+      contacts: [
+        {
+          id: 1,
+          first_name: "john",
+          last_name: "Biddulph",
+          email: "john@biddulph.com",
+          phone: "123-456-1234",
+          address: "Suite 120",
+          town_city: "Gulgowskifurt",
+          region_county: "New York",
+          country_code: "UK",
+          post_code: "44108-7935",
+        },
+        {
+          id: 2,
+          first_name: "jack",
+          last_name: "doe",
+          email: "jack@doe.com",
+          phone: "123-456-444",
+          address: "Suite 120",
+          town_city: "Gulgowskifurt",
+          region_county: "New York",
+          country_code: "UK",
+          post_code: "44108-7935",
+        },
+        {
+          id: 3,
+          first_name: "Tim",
+          last_name: "Bush",
+          email: "tim@bush.com",
+          address: "Suite 120",
+          town_city: "Gulgowskifurt",
+          region_county: "New York",
+          country_code: "UK",
+          post_code: "44108-7935",
+        },
+      ],
+    };
   },
 };
 </script>
