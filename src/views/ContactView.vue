@@ -3,19 +3,19 @@
     <NavBar />
     <h2>Contact Page</h2>
     <ul>
-      <li v-for="contact in contacts" :key="contact.id">
-        {{ contact.first_name }}
-      </li>
+      <ListContacts :contacts="contacts" />
     </ul>
   </div>
 </template>
 
 <script>
 import NavBar from "@/components/NavBar.vue";
+import ListContacts from "@/components/ListContacts.vue";
 export default {
   name: "ContactPage",
   components: {
     NavBar,
+    ListContacts,
   },
   data() {
     return {
