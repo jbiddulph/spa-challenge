@@ -1,6 +1,5 @@
 <template>
   <NavBar />
-  <h2>Contact Details</h2>
   <ContactDetails />
 </template>
 

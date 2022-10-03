@@ -1,6 +1,5 @@
 <template>
   <NavBar />
-  <h2>Company Details</h2>
   <CompanyDetails />
 </template>
 

@@ -112,15 +112,25 @@
           class="flex flex-col p-4 mt-4 bg-gray-50 rounded-lg border border-gray-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
         >
           <li>
-            <router-link class="rounded hover:dark-orange p-2" to="/"
+            <router-link
+              class="rounded hover:bg-dark-orange hover:text-white p-2"
+              to="/"
               >Home</router-link
             >
           </li>
           <li>
-            <router-link to="/companies">Companies</router-link>
+            <router-link
+              class="rounded hover:bg-dark-orange hover:text-white p-2"
+              to="/companies"
+              >Companies</router-link
+            >
           </li>
           <li>
-            <router-link to="/contacts">Contacts</router-link>
+            <router-link
+              class="rounded hover:bg-dark-orange hover:text-white p-2"
+              to="/contacts"
+              >Contacts</router-link
+            >
           </li>
         </ul>
       </div>

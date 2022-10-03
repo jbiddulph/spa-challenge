@@ -1,9 +1,9 @@
 <template>
   <div>
-    {{ companyDetails }}
-
-    <div v-if="companyContacts">
-      <h2>Company Contacts</h2>
+    <div :class="{ 'is-loading': isLoading }">&nbsp;</div>
+    <div v-if="companyContacts" class="container max-w-6xl mx-auto my-20">
+      <h2 v-show="!isLoading" class="text-2xl mb-10 text-center">Companies</h2>
+      {{ companyDetails }}
       <ul>
         <li v-for="contact in companyContacts" :key="contact.id">
           {{ contact }}

@@ -1,6 +1,15 @@
 <template>
   <div>
-    {{ contactDetails }}
+    <div :class="{ 'is-loading': isLoading }">&nbsp;</div>
+    <div
+      v-if="contactDetails"
+      v-show="!isLoading"
+      class="container max-w-6xl mx-auto my-20"
+    >
+      <h2 class="text-2xl mb-10 text-center">Contact</h2>
+      {{ contactDetails }}
+      {{ fullName }}
+    </div>
   </div>
 </template>
 
@@ -12,6 +21,8 @@ export default {
   data() {
     return {
       contactDetails: {},
+      firstName: "",
+      lastName: "",
     };
   },
   methods: {
@@ -21,6 +32,8 @@ export default {
       );
       try {
         this.contactDetails = response.data.data;
+        this.firstName = this.contactDetails.first_name;
+        this.lastName = this.contactDetails.last_name;
       } catch (error) {
         console.log("Error: ", error.message);
       }
@@ -28,6 +41,11 @@ export default {
   },
   mounted() {
     this.getContactDetails();
+  },
+  computed: {
+    fullName() {
+      return this.firstName + " " + this.lastName;
+    },
   },
 };
 </script>
