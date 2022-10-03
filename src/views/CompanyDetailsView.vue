@@ -1,12 +1,15 @@
 <template>
+  <NavBar />
   <h2>Company Details</h2>
   <CompanyDetails />
 </template>
 
 <script>
+import NavBar from "@/components/NavBar.vue";
 import CompanyDetails from "@/components/CompanyDetails.vue";
 export default {
   components: {
+    NavBar,
     CompanyDetails,
   },
   name: "CompanyDetailsView",
