@@ -1,8 +1,7 @@
 <template>
   <div class="bg-gray-200 h-100 p-4 rounded m-4">
-    <div class="flex justify-between">
-      <h3 class="text-xl">{{ contactDetails.name }}</h3>
-      <span class="font-bold">({{ contactDetails.id }})</span>&nbsp;
+    <div>
+      <h3 class="text-xl">{{ fullName }}</h3>
     </div>
     <div class="my-2">
       {{ contactDetails.email }}<br />
@@ -22,6 +21,20 @@ export default {
   props: {
     contactDetails: {},
   },
-  methods() {},
+  data() {
+    return {
+      firstName: "",
+      lastName: "",
+    };
+  },
+  mounted() {
+    this.firstName = this.contactDetails.first_name;
+    this.lastName = this.contactDetails.last_name;
+  },
+  computed: {
+    fullName() {
+      return this.firstName + " " + this.lastName;
+    },
+  },
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <NavBar />
   <div class="container max-w-6xl mx-auto my-20">
-    <h2 class="text-2xl mb-10 text-center">Company Page</h2>
+    <h2 class="text-2xl mb-10 text-center">Companies</h2>
     <ul class="flex flex-wrap justify-between">
       <ListCompanies :listCompanies="companies" />
     </ul>
