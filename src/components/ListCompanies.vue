@@ -1,13 +1,14 @@
 <template>
+  <pre>{{ listCompanies }}</pre>
   <li class="max-w-100" v-for="company in companies" :key="company.id">
-    {{ company.first_name }}
+    {{ company.name }}
   </li>
 </template>
 
 <script>
 export default {
   props: {
-    companies: [],
+    listCompanies: [],
   },
 };
 </script>
