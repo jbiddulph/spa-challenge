@@ -8,18 +8,9 @@
       {{ companyDetails.email }}<br />
       {{ companyDetails.phone }}<br />
     </div>
-    <div>
-      <p>
-        {{ companyDetails.address }}<br />
-        {{ companyDetails.town_city }}<br />
-        {{ companyDetails.region_county }}<br />
-        {{ companyDetails.country_code }}<br />
-        {{ companyDetails.post_code }}
-      </p>
-    </div>
     <router-link :to="`/company/${companyDetails.id}`">
       <button class="bg-green-400 w-full py-2 mt-2 rounded text-green-700">
-        VIEW COMPANY
+        COMPANY DETAILS
       </button>
     </router-link>
   </div>

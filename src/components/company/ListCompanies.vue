@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import Company from "@/components/Company.vue";
+import Company from "@/components/company/Company.vue";
 export default {
   components: {
     Company,

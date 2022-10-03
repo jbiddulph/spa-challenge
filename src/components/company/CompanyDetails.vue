@@ -1,6 +1,15 @@
 <template>
   <div>
     {{ companyDetails }}
+
+    <div v-if="companyContacts">
+      <h2>Company Contacts</h2>
+      <ul>
+        <li v-for="contact in companyContacts" :key="contact.id">
+          {{ contact }}
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -12,6 +21,7 @@ export default {
   data() {
     return {
       companyDetails: {},
+      companyContacts: [],
     };
   },
   methods: {
@@ -26,11 +36,11 @@ export default {
       }
     },
     async getCompanyContacts() {
-      let response = await axios.get(
+      let contacts = await axios.get(
         `https://ui-test.tshirtandsons.com/api/companies/${this.$route.params.id}/contacts`
       );
       try {
-        this.companyDetails = response.data.data;
+        this.companyContacts = contacts.data.data.contacts;
       } catch (error) {
         console.log("Error: ", error.message);
       }
@@ -38,6 +48,7 @@ export default {
   },
   mounted() {
     this.getCompanyDetails();
+    this.getCompanyContacts();
   },
 };
 </script>

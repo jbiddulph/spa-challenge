@@ -6,7 +6,7 @@
 
 <script>
 import NavBar from "@/components/NavBar.vue";
-import CompanyDetails from "@/components/CompanyDetails.vue";
+import CompanyDetails from "@/components/company/CompanyDetails.vue";
 export default {
   components: {
     NavBar,
