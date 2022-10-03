@@ -6,9 +6,8 @@
       v-show="!isLoading"
       class="container max-w-6xl mx-auto my-20"
     >
-      <h2 class="text-2xl mb-10 text-center">Contact</h2>
+      <h2 class="text-2xl mb-10 text-center">{{ fullName }}</h2>
       {{ contactDetails }}
-      {{ fullName }}
     </div>
   </div>
 </template>
