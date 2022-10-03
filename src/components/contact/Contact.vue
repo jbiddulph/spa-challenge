@@ -1,11 +1,11 @@
 <template>
   <div class="bg-gray-200 h-100 p-4 rounded m-4">
-    <div>
-      <h3 class="text-xl">{{ fullName }}</h3>
-    </div>
+    <h3 class="text-xl">{{ fullName }}</h3>
     <div class="my-2">
-      {{ contactDetails.email }}<br />
-      {{ contactDetails.phone }}<br />
+      <i class="fa-solid fa-envelope"></i>&nbsp;&nbsp;{{ contactDetails.email
+      }}<br />
+      <i class="fa-solid fa-phone"></i>&nbsp;&nbsp;{{ contactDetails.phone
+      }}<br />
     </div>
     <router-link :to="`/contact/${contactDetails.id}`">
       <button class="bg-green-400 w-full py-2 mt-2 rounded text-green-700">
