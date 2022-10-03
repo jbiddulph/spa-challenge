@@ -1,12 +1,11 @@
 <template>
   <NavBar />
-  <h2>Company Page</h2>
-  <!-- <pre>
-    {{ companies }}
-  </pre> -->
-  <ul>
-    <ListCompanies :listCompanies="companies" />
-  </ul>
+  <div class="container max-w-6xl bg-gray-500 mx-auto my-20">
+    <h2 class="text-2xl mb-10">Company Page</h2>
+    <ul class="flex flex-wrap justify-between">
+      <ListCompanies :listCompanies="companies" />
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -30,7 +29,6 @@ export default {
         "https://ui-test.tshirtandsons.com/companies"
       );
       this.companies = response.data.data;
-      console.log("companies: " + this.companies);
     },
   },
   mounted() {
