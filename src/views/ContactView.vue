@@ -9,7 +9,7 @@
       </AppButton>
     </div>
     <ul class="flex flex-wrap justify-between">
-      <ListContacts :contacts="contacts" />
+      <ListItems :listItems="contacts" type="contact" />
     </ul>
   </div>
 </template>
@@ -18,13 +18,13 @@
 import AppButton from "@/components/AppButton.vue";
 import axios from "axios";
 import NavBar from "@/components/NavBar.vue";
-import ListContacts from "@/components/contact/ListContacts.vue";
+import ListItems from "@/components/ListItems.vue";
 export default {
   name: "ContactPage",
   components: {
     AppButton,
     NavBar,
-    ListContacts,
+    ListItems,
   },
   data() {
     return {

@@ -12,9 +12,7 @@
         Add New Company
       </AppButton>
     </div>
-    <ul class="flex flex-wrap justify-between">
-      <ListCompanies :listCompanies="companies" />
-    </ul>
+    <ListItems :listItems="companies" type="company" />
     <ModalWindow :open="isOpen" @close="this.isOpen = !this.isOpen">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
     </ModalWindow>
@@ -26,7 +24,7 @@ import { ref } from "vue";
 import AppButton from "@/components/AppButton.vue";
 import ModalWindow from "@/components/ModalWindow.vue";
 import NavBar from "@/components/NavBar.vue";
-import ListCompanies from "@/components/company/ListCompanies.vue";
+import ListItems from "@/components/ListItems.vue";
 import axios from "axios";
 export default {
   name: "CompanyPage",
@@ -34,7 +32,7 @@ export default {
     AppButton,
     ModalWindow,
     NavBar,
-    ListCompanies,
+    ListItems,
   },
   data() {
     return {
