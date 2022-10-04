@@ -2,7 +2,12 @@
   <NavBar />
   <div :class="{ 'is-loading': isLoading }">&nbsp;</div>
   <div v-if="!isLoading" class="container max-w-6xl mx-auto my-20">
-    <h2 v-show="!isLoading" class="text-2xl mb-10 text-center">Companies</h2>
+    <div class="flex justify-between mx-8 md:mx-4 mb-10">
+      <h2 v-show="!isLoading" class="text-2xl text-center">Companies</h2>
+      <AppButton type="secondary" :processing="isLoading">
+        Add New Company
+      </AppButton>
+    </div>
     <ul class="flex flex-wrap justify-between">
       <ListCompanies :listCompanies="companies" />
     </ul>
@@ -10,12 +15,14 @@
 </template>
 
 <script>
+import AppButton from "@/components/AppButton.vue";
 import NavBar from "@/components/NavBar.vue";
 import ListCompanies from "@/components/company/ListCompanies.vue";
 import axios from "axios";
 export default {
   name: "CompanyPage",
   components: {
+    AppButton,
     NavBar,
     ListCompanies,
   },

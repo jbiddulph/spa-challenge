@@ -2,7 +2,12 @@
   <NavBar />
   <div :class="{ 'is-loading': isLoading }">&nbsp;</div>
   <div class="container max-w-6xl mx-auto my-20">
-    <h2 v-show="!isLoading" class="text-2xl mb-10 text-center">Contacts</h2>
+    <div class="flex justify-between mx-8 md:mx-4 mb-10">
+      <h2 v-show="!isLoading" class="text-2xl text-center">Contacts</h2>
+      <AppButton type="secondary" :processing="isLoading">
+        Add New Contact
+      </AppButton>
+    </div>
     <ul class="flex flex-wrap justify-between">
       <ListContacts :contacts="contacts" />
     </ul>
@@ -10,12 +15,14 @@
 </template>
 
 <script>
+import AppButton from "@/components/AppButton.vue";
 import axios from "axios";
 import NavBar from "@/components/NavBar.vue";
 import ListContacts from "@/components/contact/ListContacts.vue";
 export default {
   name: "ContactPage",
   components: {
+    AppButton,
     NavBar,
     ListContacts,
   },

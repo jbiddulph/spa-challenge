@@ -19,6 +19,7 @@ export default {
   name: "ContactDetails",
   data() {
     return {
+      isLoading: false,
       contactDetails: {},
       firstName: "",
       lastName: "",
@@ -26,6 +27,7 @@ export default {
   },
   methods: {
     async getContactDetails() {
+      this.isLoading = true;
       let response = await axios.get(
         `https://ui-test.tshirtandsons.com/api/contacts/${this.$route.params.id}`
       );
@@ -33,6 +35,7 @@ export default {
         this.contactDetails = response.data.data;
         this.firstName = this.contactDetails.first_name;
         this.lastName = this.contactDetails.last_name;
+        this.isLoading = false;
       } catch (error) {
         console.log("Error: ", error.message);
       }

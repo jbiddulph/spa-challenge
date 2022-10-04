@@ -22,27 +22,32 @@ export default {
   name: "CompanyDetails",
   data() {
     return {
+      isLoading: false,
       companyDetails: {},
       companyContacts: [],
     };
   },
   methods: {
     async getCompanyDetails() {
-      let response = await axios.get(
+      this.isLoading = true;
+      let company = await axios.get(
         `https://ui-test.tshirtandsons.com/api/companies/${this.$route.params.id}`
       );
       try {
-        this.companyDetails = response.data.data;
+        this.companyDetails = company.data.data;
+        this.isLoading = false;
       } catch (error) {
         console.log("Error: ", error.message);
       }
     },
     async getCompanyContacts() {
+      this.isLoading = true;
       let contacts = await axios.get(
         `https://ui-test.tshirtandsons.com/api/companies/${this.$route.params.id}/contacts`
       );
       try {
         this.companyContacts = contacts.data.data.contacts;
+        this.isLoading = false;
       } catch (error) {
         console.log("Error: ", error.message);
       }
