@@ -8,9 +8,7 @@
         Add New Contact
       </AppButton>
     </div>
-    <ul class="flex flex-wrap justify-between">
-      <ListItems :listItems="contacts" type="contact" />
-    </ul>
+    <ListItems :listItems="contacts" type="contact" />
   </div>
 </template>
 
