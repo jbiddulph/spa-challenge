@@ -4,18 +4,27 @@
   <div v-if="!isLoading" class="container max-w-6xl mx-auto my-20">
     <div class="flex justify-between mx-8 md:mx-4 mb-10">
       <h2 v-show="!isLoading" class="text-2xl text-center">Companies</h2>
-      <AppButton type="secondary" :processing="isLoading">
+      <AppButton
+        type="secondary"
+        :processing="isLoading"
+        @click.prevent="isOpen = true"
+      >
         Add New Company
       </AppButton>
     </div>
     <ul class="flex flex-wrap justify-between">
       <ListCompanies :listCompanies="companies" />
     </ul>
+    <ModalWindow :open="isOpen" @close="this.isOpen = !this.isOpen">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    </ModalWindow>
   </div>
 </template>
 
 <script>
+import { ref } from "vue";
 import AppButton from "@/components/AppButton.vue";
+import ModalWindow from "@/components/ModalWindow.vue";
 import NavBar from "@/components/NavBar.vue";
 import ListCompanies from "@/components/company/ListCompanies.vue";
 import axios from "axios";
@@ -23,6 +32,7 @@ export default {
   name: "CompanyPage",
   components: {
     AppButton,
+    ModalWindow,
     NavBar,
     ListCompanies,
   },
@@ -30,6 +40,7 @@ export default {
     return {
       isLoading: false,
       companies: [],
+      isOpen: ref(false),
     };
   },
   methods: {
