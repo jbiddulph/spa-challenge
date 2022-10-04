@@ -6,6 +6,7 @@
         {{ companyDetails.name }}
       </h2>
       {{ companyDetails }}
+      <h3 class="text-center text-xl my-10">Contacts</h3>
       <ul>
         <li v-for="contact in companyContacts" :key="contact.id">
           {{ contact }}

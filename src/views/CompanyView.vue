@@ -14,7 +14,8 @@
     </div>
     <ListItems :listItems="companies" type="company" />
     <ModalWindow :open="isOpen" @close="this.isOpen = !this.isOpen">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      Add / Edit Company Form
+      <AddEditForm />
     </ModalWindow>
   </div>
 </template>
@@ -25,6 +26,7 @@ import AppButton from "@/components/AppButton.vue";
 import ModalWindow from "@/components/ModalWindow.vue";
 import NavBar from "@/components/NavBar.vue";
 import ListItems from "@/components/ListItems.vue";
+import AddEditForm from "@/components/company/AddEditForm.vue";
 import axios from "axios";
 export default {
   name: "CompanyPage",
@@ -33,6 +35,7 @@ export default {
     ModalWindow,
     NavBar,
     ListItems,
+    AddEditForm,
   },
   data() {
     return {
@@ -60,29 +63,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-@keyframes spinner {
-  to {
-    transform: rotate(360deg);
-  }
-}
-.is-loading {
-  color: transparent;
-}
-.is-loading:before {
-  content: "";
-  box-sizing: border-box;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 20px;
-  height: 20px;
-  margin-top: -10px;
-  margin-left: -10px;
-  border-radius: 50%;
-  border: 2px solid #ccc;
-  border-top-color: #000;
-  animation: spinner 0.6s linear infinite;
-}
-</style>
