@@ -15,7 +15,6 @@
     <ListItems :listItems="companies" type="company" />
     <ModalWindow :open="isOpen" @close="this.isOpen = !this.isOpen">
       Add / Edit Company Form
-      <AddEditForm />
     </ModalWindow>
   </div>
 </template>
@@ -26,7 +25,6 @@ import AppButton from "@/components/AppButton.vue";
 import ModalWindow from "@/components/ModalWindow.vue";
 import NavBar from "@/components/NavBar.vue";
 import ListItems from "@/components/ListItems.vue";
-import AddEditForm from "@/components/company/AddEditForm.vue";
 import axios from "axios";
 export default {
   name: "CompanyPage",
@@ -35,7 +33,6 @@ export default {
     ModalWindow,
     NavBar,
     ListItems,
-    AddEditForm,
   },
   data() {
     return {

@@ -15,6 +15,7 @@
     <ListItems :listItems="contacts" type="contact" />
     <ModalWindow :open="isOpen" @close="this.isOpen = !this.isOpen">
       Add/Edit Contact Form to go here
+      <AddEditForm />
     </ModalWindow>
   </div>
 </template>
@@ -26,6 +27,7 @@ import axios from "axios";
 import NavBar from "@/components/NavBar.vue";
 import ListItems from "@/components/ListItems.vue";
 import ModalWindow from "@/components/ModalWindow.vue";
+import AddEditForm from "@/components/contact/AddEditForm.vue";
 export default {
   name: "ContactPage",
   components: {
@@ -33,6 +35,7 @@ export default {
     NavBar,
     ListItems,
     ModalWindow,
+    AddEditForm,
   },
   data() {
     return {

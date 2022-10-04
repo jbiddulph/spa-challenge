@@ -5,6 +5,7 @@
       'bg-dark-orange hover:bg-light-orange text-white': type === 'primary',
       'bg-black text-white': type === 'secondary',
       'bg-white text-black border-2': type === 'close',
+      'bg-dark-orange hover:bg-light-orange text-black': type === 'submit',
       'cursor-not-allowed text-gray-500 bg-gray-800': processing,
     }"
     :disabled="processing"
