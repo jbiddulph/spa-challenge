@@ -127,8 +127,8 @@ export default {
       alertText: "",
     };
   },
-  mounted() {
-    if (this.editing == true) {
+  beforeMount() {
+    if (this.editing) {
       this.first_name = this.contactDetails.first_name;
       this.last_name = this.contactDetails.last_name;
       this.email = this.contactDetails.email;
