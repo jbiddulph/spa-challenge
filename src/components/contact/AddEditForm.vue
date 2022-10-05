@@ -1,26 +1,28 @@
 <template>
-  <h2>Add / Edit form</h2>
-  <div>{{ name }}</div>
+  <h2>Add New Contact</h2>
+  <div v-if="alertShow" :class="alertClasses">
+    {{ alertText }}
+  </div>
   <form @submit.prevent="onSubmit">
     <div class="my-4">
       <label for="First Name">First Name</label>
       <input
         type="text"
         placeholder="First Name"
-        v-model="this.first_name"
+        v-model="first_name"
         class="w-full rounded border-2 border-gray p-2"
       />
-      <!-- <div class="error" v-if="errors.first_name">{{ errors.first_name }}</div> -->
+      <div class="error" v-if="errors.first_name">{{ errors.first_name }}</div>
     </div>
     <div class="my-4">
       <label for="Last Name">Last Name</label>
       <input
         type="text"
         placeholder="Last Name"
-        v-model="this.last_name"
+        v-model="last_name"
         class="w-full rounded border-2 border-gray p-2"
       />
-      <!-- <div class="error" v-if="errors.last_name">{{ errors.last_name }}</div> -->
+      <div class="error" v-if="errors.last_name">{{ errors.last_name }}</div>
     </div>
     <div class="my-4">
       <label for="Email">Email</label>
@@ -49,7 +51,6 @@
         v-model="address"
         class="w-full rounded border-2 border-gray p-2"
       />
-      <div class="error" v-if="errors.address">{{ errors.address }}</div>
     </div>
     <div class="my-4">
       <label for="Town/City">Town/City</label>
@@ -83,16 +84,12 @@
       <input
         type="text"
         placeholder="post code"
-        v-model="post_code"
+        v-model="postal_code"
         class="w-full rounded border-2 border-gray p-2"
       />
     </div>
     <div class="my-4">
-      <AppButton
-        type="submit"
-        placeholder="post code"
-        class="rounded border-2 border-gray p-2"
-      >
+      <AppButton type="submit" class="rounded border-2 border-gray p-2">
         Add Contact
       </AppButton>
     </div>
@@ -108,9 +105,14 @@ export default {
   components: {
     AppButton,
   },
+  props: {
+    editing: Boolean,
+    contactDetails: Object,
+  },
   data() {
     return {
-      name: "",
+      first_name: "",
+      last_name: "",
       email: "",
       phone: "",
       address: "",
@@ -120,10 +122,41 @@ export default {
       postal_code: "",
       errors: [],
       contact: {},
+      alertShow: false,
+      alertClasses: "",
+      alertText: "",
     };
+  },
+  mounted() {
+    if (this.editing == true) {
+      this.first_name = this.contactDetails.first_name;
+      this.last_name = this.contactDetails.last_name;
+      this.email = this.contactDetails.email;
+      this.phone = this.contactDetails.phone;
+      this.address = this.contactDetails.address;
+      this.town_city = this.contactDetails.town_city;
+      this.region_county = this.contactDetails.region_county;
+      this.country_code = this.contactDetails.country_code;
+      this.postal_code = this.contactDetails.postal_code;
+    }
   },
   methods: {
     onSubmit() {
+      let validations = new CompanyValidations(
+        this.first_name,
+        this.last_name,
+        this.email,
+        this.phone,
+        this.address,
+        this.town_city,
+        this.region_county,
+        this.country_code,
+        this.postal_code
+      );
+      this.errors = validations.checkValidations();
+      if (this.errors.length) {
+        return false;
+      }
       this.contact = {
         first_name: this.first_name,
         last_name: this.last_name,
@@ -135,16 +168,18 @@ export default {
         country_code: this.country_code,
         postal_code: this.postal_code,
       };
-      axios
-        .post("https://ui-test.tshirtandsons.com/api/contacts", this.contact)
-        .then((response) => {
-          console.log("response: " + response);
-        });
-      //   let validations = new CompanyValidations(this.address, this.email);
-      //   this.errors = validations.checkValidations();
-      //   if (this.errors.length) {
-      //     return false;
-      //   }
+      try {
+        axios
+          .post("https://ui-test.tshirtandsons.com/api/contacts", this.contact)
+          .then((response) => {
+            this.alertShow = true;
+            this.alertClasses =
+              "bg-green-300 rounded border-2 border-green-500 p-2";
+            this.alertText = "Success, your contact has been added!";
+          });
+      } catch (error) {
+        console.log("ERROR: ", error);
+      }
     },
   },
 };

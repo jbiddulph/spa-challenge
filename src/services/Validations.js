@@ -5,8 +5,14 @@ export default class Validations {
     }
     return false;
   }
-  static minLength(address, minLength) {
-    if (address.length < minLength) {
+  static minLength(first_name, minLength) {
+    if (first_name.length < minLength) {
+      return false;
+    }
+    return true;
+  }
+  static maxLength(name, maxLength) {
+    if (name.length > maxLength) {
       return false;
     }
     return true;
