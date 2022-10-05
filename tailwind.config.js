@@ -5,7 +5,7 @@ module.exports = {
     extend: {
       colors: {
         'light-orange': '#f29d4b',
-        'dark-orange': '#f29d4b',
+        'dark-orange': '#ed6f33',
         'modal-opacity': 'rgba(0,0,0,0.4)',
       },
     },

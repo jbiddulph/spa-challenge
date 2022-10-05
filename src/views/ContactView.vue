@@ -2,7 +2,7 @@
   <NavBar />
   <div :class="{ 'is-loading': isLoading }">&nbsp;</div>
   <div v-if="!isLoading" class="container max-w-6xl mx-auto my-20">
-    <div class="flex justify-between mx-8 md:mx-4 mb-10">
+    <div class="flex justify-between mx-8 md:mx-4 mb-4">
       <h2 v-show="!isLoading" class="text-2xl text-center">Contacts</h2>
       <AppButton
         type="secondary"
@@ -12,6 +12,7 @@
         Add New Contact
       </AppButton>
     </div>
+    <SearchBy />
     <ListItems :listItems="contacts" type="contact" />
     <ModalWindow :open="isOpen" @close="this.isOpen = !this.isOpen">
       <AddEditForm />
@@ -24,6 +25,7 @@ import { ref } from "vue";
 import AppButton from "@/components/AppButton.vue";
 import axios from "axios";
 import NavBar from "@/components/NavBar.vue";
+import SearchBy from "@/components/SearchBy.vue";
 import ListItems from "@/components/ListItems.vue";
 import ModalWindow from "@/components/ModalWindow.vue";
 import AddEditForm from "@/components/contact/AddEditForm.vue";
@@ -32,6 +34,7 @@ export default {
   components: {
     AppButton,
     NavBar,
+    SearchBy,
     ListItems,
     ModalWindow,
     AddEditForm,
