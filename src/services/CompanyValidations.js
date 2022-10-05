@@ -9,7 +9,7 @@ export default class CompanyValidations {
     town_city,
     region_county,
     country_code,
-    postal_code
+    post_code
   ) {
     this.first_name = first_name;
     this.last_name = last_name;
@@ -19,7 +19,7 @@ export default class CompanyValidations {
     this.town_city = town_city;
     this.region_county = region_county;
     this.country_code = country_code;
-    this.postal_code = postal_code;
+    this.post_code = post_code;
   }
 
   checkValidations() {

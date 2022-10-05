@@ -84,7 +84,7 @@
       <input
         type="text"
         placeholder="post code"
-        v-model="postal_code"
+        v-model="post_code"
         class="w-full rounded border-2 border-gray p-2"
       />
     </div>
@@ -119,7 +119,7 @@ export default {
       town_city: "",
       region_county: "",
       country_code: "",
-      postal_code: "",
+      post_code: "",
       errors: [],
       contact: {},
       alertShow: false,
@@ -128,7 +128,7 @@ export default {
     };
   },
   beforeMount() {
-    if (this.editing) {
+    if (this.editing === true) {
       this.first_name = this.contactDetails.first_name;
       this.last_name = this.contactDetails.last_name;
       this.email = this.contactDetails.email;
@@ -137,7 +137,7 @@ export default {
       this.town_city = this.contactDetails.town_city;
       this.region_county = this.contactDetails.region_county;
       this.country_code = this.contactDetails.country_code;
-      this.postal_code = this.contactDetails.postal_code;
+      this.post_code = this.contactDetails.post_code;
     }
   },
   methods: {
@@ -151,7 +151,7 @@ export default {
         this.town_city,
         this.region_county,
         this.country_code,
-        this.postal_code
+        this.post_code
       );
       this.errors = validations.checkValidations();
       if (this.errors.length) {
@@ -166,7 +166,7 @@ export default {
         town_city: this.town_city,
         region_county: this.region_county,
         country_code: this.country_code,
-        postal_code: this.postal_code,
+        post_code: this.post_code,
       };
       try {
         axios
