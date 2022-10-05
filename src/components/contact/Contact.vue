@@ -23,7 +23,6 @@
       </router-link>
     </div>
     <ModalWindow :open="isOpen" @close="this.isOpen = !this.isOpen">
-      Add/Edit Contact Form to go here
       <AddEditForm :editing="isEdit" :contactDetails="contactDetails" />
     </ModalWindow>
   </div>

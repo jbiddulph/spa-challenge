@@ -14,7 +14,6 @@
     </div>
     <ListItems :listItems="contacts" type="contact" />
     <ModalWindow :open="isOpen" @close="this.isOpen = !this.isOpen">
-      Add/Edit Contact Form to go here
       <AddEditForm />
     </ModalWindow>
   </div>
