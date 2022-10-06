@@ -13,10 +13,6 @@
       </AppButton>
     </div>
     <ListItems :listItems="contacts.data" type="contact" />
-    <!-- <Pagination
-      :data="contacts"
-      @pagination-change-page="getPaginatedContacts"
-    /> -->
     <Pagination :data="contacts" @pagination-change-page="getPaginatedContacts">
       <template #prev-nav>
         <span>&lt; Previous</span>
@@ -25,13 +21,6 @@
         <span>Next &gt;</span>
       </template>
     </Pagination>
-    <!-- {{ links }} -->
-    <!-- <PaginateItems
-      v-if="pagination.last_page > 1"
-      :pagination="pagination"
-      :offset="5"
-      @paginate="query === '' ? getAllContacts() : searchData()"
-    ></PaginateItems> -->
     <ModalWindow :open="isOpen" @close="this.isOpen = !this.isOpen">
       <AddEditForm />
     </ModalWindow>
@@ -44,7 +33,6 @@ import AppButton from "@/components/AppButton.vue";
 import axios from "axios";
 import NavBar from "@/components/NavBar.vue";
 import ListItems from "@/components/ListItems.vue";
-// import PaginateItems from "@/components/PaginateItems.vue";
 import LaravelVuePagination from "laravel-vue-pagination";
 import ModalWindow from "@/components/ModalWindow.vue";
 import AddEditForm from "@/components/contact/AddEditForm.vue";
@@ -54,7 +42,6 @@ export default {
     AppButton,
     NavBar,
     ListItems,
-    // PaginateItems,
     Pagination: LaravelVuePagination,
     ModalWindow,
     AddEditForm,
