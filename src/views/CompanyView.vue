@@ -22,6 +22,7 @@
 
 <script>
 import { ref } from "vue";
+import ApiCalls from "@/mixins/ApiCalls";
 import AppButton from "@/components/AppButton.vue";
 import NavBar from "@/components/NavBar.vue";
 import SearchBy from "@/components/SearchBy.vue";
@@ -29,6 +30,7 @@ import ListItems from "@/components/ListItems.vue";
 import ModalWindow from "@/components/ModalWindow.vue";
 import axios from "axios";
 export default {
+  mixins: [ApiCalls],
   name: "CompanyPage",
   components: {
     AppButton,
@@ -43,23 +45,6 @@ export default {
       companies: [],
       isOpen: ref(false),
     };
-  },
-  methods: {
-    async getAllCompanies() {
-      this.isLoading = true;
-      let response = await axios.get(
-        "https://ui-test.tshirtandsons.com/api/companies"
-      );
-      try {
-        this.companies = response.data.data;
-        this.isLoading = false;
-      } catch (error) {
-        console.log("Error: ", error.message);
-      }
-    },
-  },
-  mounted() {
-    this.getAllCompanies();
   },
 };
 </script>
