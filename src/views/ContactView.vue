@@ -12,14 +12,26 @@
         Add New Contact
       </AppButton>
     </div>
-    <ListItems :listItems="contacts" type="contact" />
-    {{ links }}
-    <PaginateItems
+    <ListItems :listItems="contacts.data" type="contact" />
+    <!-- <Pagination
+      :data="contacts"
+      @pagination-change-page="getPaginatedContacts"
+    /> -->
+    <Pagination :data="contacts" @pagination-change-page="getPaginatedContacts">
+      <template #prev-nav>
+        <span>&lt; Previous</span>
+      </template>
+      <template #next-nav>
+        <span>Next &gt;</span>
+      </template>
+    </Pagination>
+    <!-- {{ links }} -->
+    <!-- <PaginateItems
       v-if="pagination.last_page > 1"
       :pagination="pagination"
       :offset="5"
       @paginate="query === '' ? getAllContacts() : searchData()"
-    ></PaginateItems>
+    ></PaginateItems> -->
     <ModalWindow :open="isOpen" @close="this.isOpen = !this.isOpen">
       <AddEditForm />
     </ModalWindow>
@@ -32,7 +44,8 @@ import AppButton from "@/components/AppButton.vue";
 import axios from "axios";
 import NavBar from "@/components/NavBar.vue";
 import ListItems from "@/components/ListItems.vue";
-import PaginateItems from "@/components/PaginateItems.vue";
+// import PaginateItems from "@/components/PaginateItems.vue";
+import LaravelVuePagination from "laravel-vue-pagination";
 import ModalWindow from "@/components/ModalWindow.vue";
 import AddEditForm from "@/components/contact/AddEditForm.vue";
 export default {
@@ -41,7 +54,8 @@ export default {
     AppButton,
     NavBar,
     ListItems,
-    PaginateItems,
+    // PaginateItems,
+    Pagination: LaravelVuePagination,
     ModalWindow,
     AddEditForm,
   },
@@ -57,13 +71,13 @@ export default {
     };
   },
   methods: {
-    async getAllContacts(pageNo = 1) {
+    async getPaginatedContacts(pageNo = 1) {
       this.isLoading = true;
       let response = await axios.get(
         `https://ui-test.tshirtandsons.com/api/contacts/collection?page=${pageNo}`
       );
       try {
-        this.contacts = response.data.data;
+        this.contacts = response.data;
         this.links = response.data.links;
         this.pagination = response.data.links;
         this.isLoading = false;
@@ -73,7 +87,30 @@ export default {
     },
   },
   mounted() {
-    this.getAllContacts();
+    this.getPaginatedContacts();
   },
 };
 </script>
+
+<style>
+ul.pagination {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+li.pagination-page-nav.active {
+  background-color: #ed6f33;
+  color: #ffffff;
+}
+li.pagination-page-nav {
+  padding: 6px;
+  margin: 0 10px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+}
+li.pagination-page-nav a.page-link {
+  padding: 6px;
+}
+</style>
