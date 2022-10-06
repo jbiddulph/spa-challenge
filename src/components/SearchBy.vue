@@ -3,8 +3,13 @@
     <form @submit.prevent="searchContactCustomer">
       <label for="filter">Search by:</label>
       <select>
-        <option value="contact">Contact</option>
-        <option value="customer">Customer</option>
+        <option
+          v-for="(filter, index) in filterBy"
+          :key="index"
+          :value="filter.type"
+        >
+          {{ filter.name }}
+        </option>
       </select>
       <input
         type="text"
@@ -19,6 +24,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import AppButton from "@/components/AppButton.vue";
 export default {
   name: "SearchBy",
@@ -28,10 +34,26 @@ export default {
   data() {
     return {
       search: "",
+      filterBy: [
+        {
+          type: "contact",
+          name: "Contact",
+        },
+        {
+          type: "customer",
+          name: "Customer",
+        },
+      ],
     };
   },
   methods: {
-    searchContactCustomer() {},
+    async searchContactCustomer() {
+      let response = await axios.get(
+        `https://ui-test.tshirtandsons.com/api/contacts?name=${this.search}`
+      );
+      console.log("Response: ", response.data.data);
+      this.contacts = response.data.data;
+    },
   },
 };
 </script>
