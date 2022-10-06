@@ -12,8 +12,14 @@
         Add New Contact
       </AppButton>
     </div>
-    <SearchBy />
     <ListItems :listItems="contacts" type="contact" />
+    {{ links }}
+    <PaginateItems
+      v-if="pagination.last_page > 1"
+      :pagination="pagination"
+      :offset="5"
+      @paginate="query === '' ? getAllContacts() : searchData()"
+    ></PaginateItems>
     <ModalWindow :open="isOpen" @close="this.isOpen = !this.isOpen">
       <AddEditForm />
     </ModalWindow>
@@ -25,8 +31,8 @@ import { ref } from "vue";
 import AppButton from "@/components/AppButton.vue";
 import axios from "axios";
 import NavBar from "@/components/NavBar.vue";
-import SearchBy from "@/components/SearchBy.vue";
 import ListItems from "@/components/ListItems.vue";
+import PaginateItems from "@/components/PaginateItems.vue";
 import ModalWindow from "@/components/ModalWindow.vue";
 import AddEditForm from "@/components/contact/AddEditForm.vue";
 export default {
@@ -34,8 +40,8 @@ export default {
   components: {
     AppButton,
     NavBar,
-    SearchBy,
     ListItems,
+    PaginateItems,
     ModalWindow,
     AddEditForm,
   },
@@ -43,17 +49,23 @@ export default {
     return {
       isLoading: false,
       contacts: [],
+      links: [],
       isOpen: ref(false),
+      pagination: {
+        current_page: 1,
+      },
     };
   },
   methods: {
-    async getAllContacts() {
+    async getAllContacts(pageNo = 1) {
       this.isLoading = true;
       let response = await axios.get(
-        "https://ui-test.tshirtandsons.com/api/contacts"
+        `https://ui-test.tshirtandsons.com/api/contacts/collection?page=${pageNo}`
       );
       try {
         this.contacts = response.data.data;
+        this.links = response.data.links;
+        this.pagination = response.data.links;
         this.isLoading = false;
       } catch (error) {
         console.log("Error: ", error);

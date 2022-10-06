@@ -12,7 +12,6 @@
         Add New Company
       </AppButton>
     </div>
-    <SearchBy />
     <ListItems :listItems="companies" type="company" />
     <ModalWindow :open="isOpen" @close="this.isOpen = !this.isOpen">
       Add / Edit Company Form
@@ -25,7 +24,6 @@ import { ref } from "vue";
 import ApiCalls from "@/mixins/ApiCalls";
 import AppButton from "@/components/AppButton.vue";
 import NavBar from "@/components/NavBar.vue";
-import SearchBy from "@/components/SearchBy.vue";
 import ListItems from "@/components/ListItems.vue";
 import ModalWindow from "@/components/ModalWindow.vue";
 import axios from "axios";
@@ -35,7 +33,6 @@ export default {
   components: {
     AppButton,
     NavBar,
-    SearchBy,
     ListItems,
     ModalWindow,
   },
