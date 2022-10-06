@@ -10,7 +10,7 @@
   <div v-if="alertShow" :class="alertClasses">
     {{ alertText }}
   </div>
-  <Form @submit.prevent="onSubmit">
+  <Form @submit="onSubmit">
     <div class="my-4">
       <label for="First Name"
         >First Name&nbsp;<span class="text-red-700">*</span></label
@@ -109,8 +109,7 @@
       <label for="Country"
         >Country&nbsp;<span class="text-red-700">*</span></label
       >
-      <Field
-        as="select"
+      <select
         v-model="country_code"
         class="w-full rounded border-2 border-gray p-2"
         :rules="isRequired"
@@ -123,7 +122,7 @@
         >
           {{ country.name }}
         </option>
-      </Field>
+      </select>
     </div>
     <div class="my-4">
       <label for="Postcode"
@@ -687,6 +686,17 @@ export default {
       }
       return "This field is required";
     },
+    clearFields() {
+      this.first_name = "";
+      this.last_name = "";
+      this.email = "";
+      this.phone = "";
+      this.address = "";
+      this.town_city = "";
+      this.region_county = "";
+      this.country_code = "";
+      this.post_code = "";
+    },
     validateEmail(value) {
       // if the field is empty
       if (!value) {
@@ -724,6 +734,8 @@ export default {
               this.alertClasses =
                 "bg-green-300 rounded border-2 border-green-500 p-2 my-2";
               this.alertText = "Success, your contact has been added!";
+              this.clearFields();
+              this.$emit("close");
             });
         } else {
           axios
@@ -736,6 +748,8 @@ export default {
               this.alertClasses =
                 "bg-green-300 rounded border-2 border-green-500 p-2";
               this.alertText = "Success, your contact has been updated!";
+              this.clearFields();
+              this.$emit("close");
             });
         }
       } catch (error) {
