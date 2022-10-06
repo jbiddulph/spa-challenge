@@ -3,86 +3,117 @@
     v-if="
       editing ? (headerText = 'Edit Contact') : (headerText = 'Add Contact')
     "
+    class="text-xl"
   >
     {{ headerText }}
   </h2>
   <div v-if="alertShow" :class="alertClasses">
     {{ alertText }}
   </div>
-
-  {{ editing }}
-  <form @submit.prevent="onSubmit">
+  <Form @submit.prevent="onSubmit">
     <div class="my-4">
-      <label for="First Name">First Name</label>
-      <input
+      <label for="First Name"
+        >First Name&nbsp;<span class="text-red-700">*</span></label
+      >
+      <Field
+        name="first_name"
         type="text"
         placeholder="First Name"
         v-model="first_name"
         class="w-full rounded border-2 border-gray p-2"
+        :rules="isRequired"
       />
-      <div class="error" v-if="errors.first_name">{{ errors.first_name }}</div>
+      <ErrorMessage class="text-red-700 font-bold" name="first_name" />
     </div>
     <div class="my-4">
-      <label for="Last Name">Last Name</label>
-      <input
+      <label for="Last Name"
+        >Last Name&nbsp;<span class="text-red-700">*</span></label
+      >
+      <Field
+        name="last_name"
         type="text"
         placeholder="Last Name"
         v-model="last_name"
         class="w-full rounded border-2 border-gray p-2"
+        :rules="isRequired"
       />
-      <div class="error" v-if="errors.last_name">{{ errors.last_name }}</div>
+      <ErrorMessage class="text-red-700 font-bold" name="last_name" />
     </div>
     <div class="my-4">
-      <label for="Email">Email</label>
-      <input
+      <label for="Email">Email&nbsp;<span class="text-red-700">*</span></label>
+      <Field
+        name="email"
         type="email"
         placeholder="Email address"
         v-model="email"
         class="w-full rounded border-2 border-gray p-2"
+        :rules="validateEmail"
       />
-      <div class="error" v-if="errors.email">{{ errors.email }}</div>
+      <ErrorMessage class="text-red-700 font-bold" name="email" />
     </div>
     <div class="my-4">
-      <label for="Phone">Phone</label>
-      <input
+      <label for="Phone">Phone&nbsp;<span class="text-red-700">*</span></label>
+      <Field
+        name="phone"
         type="text"
         placeholder="Phone Number"
         v-model="phone"
         class="w-full rounded border-2 border-gray p-2"
+        :rules="isRequired"
       />
+      <ErrorMessage class="text-red-700 font-bold" name="phone" />
     </div>
     <div class="my-4">
-      <label for="Address">Address</label>
-      <input
+      <label for="Address"
+        >Address&nbsp;<span class="text-red-700">*</span></label
+      >
+      <Field
+        name="address"
         type="text"
         placeholder="Address"
         v-model="address"
         class="w-full rounded border-2 border-gray p-2"
+        :rules="isRequired"
       />
+      <ErrorMessage class="text-red-700 font-bold" name="address" />
     </div>
     <div class="my-4">
-      <label for="Town/City">Town/City</label>
-      <input
+      <label for="Town/City"
+        >Town/City&nbsp;<span class="text-red-700">*</span></label
+      >
+      <Field
+        name="town_city"
         type="text"
         placeholder="Town or City"
         v-model="town_city"
         class="w-full rounded border-2 border-gray p-2"
+        :rules="isRequired"
       />
+      <ErrorMessage class="text-red-700 font-bold" name="town_city" />
     </div>
     <div class="my-4">
-      <label for="Region/County">Region/County</label>
-      <input
+      <label for="Region/County"
+        >Region/County&nbsp;<span class="text-red-700">*</span></label
+      >
+      <Field
+        name="region_county"
         type="text"
         placeholder="Region or County"
         v-model="region_county"
         class="w-full rounded border-2 border-gray p-2"
+        :rules="isRequired"
       />
+      <ErrorMessage class="text-red-700 font-bold" name="region_county" />
     </div>
     <div class="my-4">
-      <label for="Country">Country</label>
-      <select
+      <label for="Country"
+        >Country&nbsp;<span class="text-red-700">*</span></label
+      >
+      <Field
+        as="select"
         v-model="country_code"
         class="w-full rounded border-2 border-gray p-2"
+        :rules="isRequired"
       >
         <option value="">Please select a country</option>
         <option
@@ -92,16 +123,21 @@
         >
           {{ country.name }}
         </option>
-      </select>
+      </Field>
     </div>
     <div class="my-4">
-      <label for="Postcode">Postcode</label>
-      <input
+      <label for="Postcode"
+        >Post code&nbsp;<span class="text-red-700">*</span></label
+      >
+      <Field
+        name="post_code"
         type="text"
         placeholder="post code"
         v-model="post_code"
         class="w-full rounded border-2 border-gray p-2"
+        :rules="isRequired"
       />
+      <ErrorMessage class="text-red-700 font-bold" name="post_code" />
     </div>
     <div class="my-4">
       <AppButton type="submit" class="rounded border-2 border-gray p-2">
@@ -116,16 +152,19 @@
         </div>
       </AppButton>
     </div>
-  </form>
+  </Form>
 </template>
 
 <script>
 import axios from "axios";
 import AppButton from "@/components/AppButton.vue";
-import CompanyValidations from "@/services/CompanyValidations.js";
+import { Form, Field, ErrorMessage } from "vee-validate";
 export default {
   name: "AddEditForm",
   components: {
+    Form,
+    Field,
+    ErrorMessage,
     AppButton,
   },
   props: {
@@ -642,22 +681,26 @@ export default {
     }
   },
   methods: {
-    onSubmit() {
-      let validations = new CompanyValidations(
-        this.first_name,
-        this.last_name,
-        this.email,
-        this.phone,
-        this.address,
-        this.town_city,
-        this.region_county,
-        this.country_code,
-        this.post_code
-      );
-      this.errors = validations.checkValidations();
-      if (this.errors.length) {
-        return false;
+    isRequired(value) {
+      if (value && value.trim()) {
+        return true;
       }
+      return "This field is required";
+    },
+    validateEmail(value) {
+      // if the field is empty
+      if (!value) {
+        return "This field is required";
+      }
+      // if the field is not a valid email
+      const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+      if (!regex.test(value)) {
+        return "This field must be a valid email";
+      }
+      // All is good
+      return true;
+    },
+    onSubmit() {
       this.contact = {
         first_name: this.first_name,
         last_name: this.last_name,
