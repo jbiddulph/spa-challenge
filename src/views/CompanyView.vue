@@ -17,7 +17,7 @@
       Add / Edit Company Form
     </ModalWindow>
   </div>
-  <Footer />
+  <Footer v-if="!isLoading" />
 </template>
 
 <script>
