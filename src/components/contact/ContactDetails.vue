@@ -7,11 +7,10 @@
       class="container max-w-6xl mx-auto my-20"
     >
       <h2 class="text-2xl mb-10 text-center">{{ fullName }}</h2>
-      {{ contactDetails }}
-      <div>
-        <div class="p-4 bg-light-orange rounded">
+      <div class="flex justify-between w-full">
+        <div class="p-4 bg-gray-300 rounded md:w-1/3">
           <h3 class="font-bold text-xl">Contact Details</h3>
-          <p class="text-white">
+          <p class="text-gray-600">
             {{ contactDetails.email }}<br />
             {{ contactDetails.phone }}<br />
             {{ contactDetails.address }}<br />
@@ -21,16 +20,21 @@
             {{ contactDetails.post_code }}<br />
           </p>
         </div>
-        <div>
+        <div class="p-4 rounded border-2 border-orange-200">
+          <ContactNote />
+        </div>
+        <div
+          v-if="contactDetails.notes && contactDetails.notes.length > 1"
+          class="md:w-1/3"
+        >
+          <h3 class="font-bold text-xl">Contact Notes</h3>
           <ul>
             <li v-for="notesList in contactDetails.notes" :key="notesList.id">
               {{ notesList.note }}
             </li>
           </ul>
         </div>
-      </div>
-      <div class="p-4 rounded border-2 border-dark-orange">
-        <ContactNote />
+        <div v-else>There are no notes associated with {{ fullName }}</div>
       </div>
     </div>
   </div>

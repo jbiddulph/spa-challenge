@@ -7,9 +7,11 @@
   >
     {{ headerText }}
   </h2>
-  <div v-if="alertShow" :class="alertClasses">
-    {{ alertText }}
-  </div>
+  <AlertBox
+    :alertShow="alertShow"
+    :alertClasses="alertClasses"
+    :alertText="alertText"
+  />
   <Form @submit="onSubmit">
     <div class="my-4">
       <label for="First Name"
@@ -157,6 +159,7 @@
 <script>
 import axios from "axios";
 import AppButton from "@/components/AppButton.vue";
+import AlertBox from "@/components/AlertBox.vue";
 import { Form, Field, ErrorMessage } from "vee-validate";
 export default {
   name: "AddEditForm",
@@ -165,6 +168,7 @@ export default {
     Field,
     ErrorMessage,
     AppButton,
+    AlertBox,
   },
   props: {
     editing: Boolean,
