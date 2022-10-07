@@ -8,7 +8,30 @@
     >
       <h2 class="text-2xl mb-10 text-center">{{ fullName }}</h2>
       {{ contactDetails }}
-      <ContactNote />
+      <div>
+        <div class="p-4 bg-light-orange rounded">
+          <h3 class="font-bold text-xl">Contact Details</h3>
+          <p class="text-white">
+            {{ contactDetails.email }}<br />
+            {{ contactDetails.phone }}<br />
+            {{ contactDetails.address }}<br />
+            {{ contactDetails.town_city }}<br />
+            {{ contactDetails.region_county }}<br />
+            {{ contactDetails.country_code }}<br />
+            {{ contactDetails.post_code }}<br />
+          </p>
+        </div>
+        <div>
+          <ul>
+            <li v-for="notesList in contactDetails.notes" :key="notesList.id">
+              {{ notesList.note }}
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="p-4 rounded border-2 border-dark-orange">
+        <ContactNote />
+      </div>
     </div>
   </div>
 </template>
