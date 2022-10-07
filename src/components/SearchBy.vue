@@ -2,7 +2,7 @@
   <div class="flex flex-row justify-end mr-2 md:mr-4">
     <form @submit.prevent="searchContactCustomer">
       <label for="filter">Search by:</label>
-      <select>
+      <select class="border-2 rounded p-1.5 border-gray-300 text-gray-500">
         <option
           v-for="(filter, index) in filterBy"
           :key="index"
@@ -14,7 +14,7 @@
       <input
         type="text"
         v-model="search"
-        class="border-2 border-gray-300 p-2 rounded mr-2"
+        class="border-2 border-gray-300 p-1 rounded mr-2 text-gray-500"
       />
       <AppButton type="primary" :processing="isLoading">
         <i class="fa-solid fa-search"></i>

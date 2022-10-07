@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <NavBar />
-    <div class="container mx-auto max-w-1100 my-16">
+    <div class="container mx-auto max-w-1100 my-16 p-4 md:p-0">
       <h2 class="text-2xl underline">Prerequisites</h2>
       <p class="my-2">
         The candidate is expected to have a local working environment ready

@@ -171,8 +171,14 @@ export default {
     AlertBox,
   },
   props: {
-    editing: Boolean,
-    contactDetails: Object,
+    editing: {
+      type: Boolean,
+      default: false,
+    },
+    contactDetails: {
+      type: Object,
+      required: true,
+    },
   },
   data() {
     return {

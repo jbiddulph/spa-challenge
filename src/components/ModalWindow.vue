@@ -3,7 +3,7 @@
     <div
       class="fixed top-0 left-0 w-full h-full overflow-x-hidden overflow-y-auto bg-modal-opacity z-10"
     >
-      <div class="w-90 md:max-w-lg mt-10 mx-4 md:mt-40 md:mx-auto">
+      <div class="w-10/12 md:max-w-lg mt-10 mx-4 md:mt-40 md:mx-auto">
         <div
           class="relative bg-white border-2 border-slate-200 p-4 bg-clip-padding rounded"
         >

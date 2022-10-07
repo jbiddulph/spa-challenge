@@ -14,10 +14,7 @@
         ></AppButton>
       </router-link>
       <router-link :to="`/contact/${contactDetails.id}`">
-        <AppButton
-          type="edit"
-          :processing="isLoading"
-          @click.prevent="isOpen = true"
+        <AppButton type="edit" :processing="isLoading" @click.prevent="editMode"
           >Edit&nbsp;&nbsp;<i class="fa-solid fa-pencil"></i
         ></AppButton>
       </router-link>
@@ -52,13 +49,18 @@ export default {
     };
   },
   mounted() {
-    this.isEdit = true;
     this.first_name = this.contactDetails.first_name;
     this.last_name = this.contactDetails.last_name;
   },
   computed: {
     fullName() {
       return this.first_name + " " + this.last_name;
+    },
+  },
+  methods: {
+    editMode() {
+      this.isOpen = true;
+      this.isEdit = true;
     },
   },
 };
