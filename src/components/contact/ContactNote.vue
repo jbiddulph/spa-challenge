@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Form @submit="onSubmit">
+    <Form @submit="addNote">
       <div class="my-4">
         <label for="First Name"
           >Note&nbsp;<span class="text-red-700">*</span></label
@@ -42,12 +42,14 @@ export default {
     };
   },
   methods: {
-    async onSubmit() {
-      let response = await axios.post(
+    async addNote() {
+      let result = await axios.put(
         `https://ui-test.tshirtandsons.com/api/contacts/${this.$route.params.id}/note`,
-        this.note
+        {
+          note: this.note,
+        }
       );
-      console.log("Res: " + response);
+      console.log("Res: " + result);
     },
   },
 };
