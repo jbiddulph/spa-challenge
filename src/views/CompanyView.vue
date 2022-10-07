@@ -17,6 +17,7 @@
       Add / Edit Company Form
     </ModalWindow>
   </div>
+  <Footer />
 </template>
 
 <script>
@@ -26,7 +27,7 @@ import AppButton from "@/components/AppButton.vue";
 import NavBar from "@/components/NavBar.vue";
 import ListItems from "@/components/ListItems.vue";
 import ModalWindow from "@/components/ModalWindow.vue";
-import axios from "axios";
+import Footer from "@/components/Footer.vue";
 export default {
   mixins: [ApiCalls],
   name: "CompanyPage",
@@ -35,6 +36,7 @@ export default {
     NavBar,
     ListItems,
     ModalWindow,
+    Footer,
   },
   data() {
     return {

@@ -25,6 +25,7 @@
       <AddEditForm />
     </ModalWindow>
   </div>
+  <Footer />
 </template>
 
 <script>
@@ -36,12 +37,14 @@ import ListItems from "@/components/ListItems.vue";
 import LaravelVuePagination from "laravel-vue-pagination";
 import ModalWindow from "@/components/ModalWindow.vue";
 import AddEditForm from "@/components/contact/AddEditForm.vue";
+import Footer from "@/components/Footer.vue";
 export default {
   name: "ContactPage",
   components: {
     AppButton,
     NavBar,
     ListItems,
+    Footer,
     Pagination: LaravelVuePagination,
     ModalWindow,
     AddEditForm,
