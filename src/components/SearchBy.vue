@@ -52,7 +52,7 @@ export default {
         `https://ui-test.tshirtandsons.com/api/contacts?name=${this.search}`
       );
       console.log("Response: ", response.data.data);
-      this.contacts = response.data.data;
+      this.contacts = response.data;
     },
   },
 };

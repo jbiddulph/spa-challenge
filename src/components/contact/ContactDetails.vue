@@ -8,15 +8,19 @@
     >
       <h2 class="text-2xl mb-10 text-center">{{ fullName }}</h2>
       {{ contactDetails }}
+      <ContactNote />
     </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-
+import ContactNote from "@/components/contact/ContactNote.vue";
 export default {
   name: "ContactDetails",
+  components: {
+    ContactNote,
+  },
   data() {
     return {
       isLoading: false,
