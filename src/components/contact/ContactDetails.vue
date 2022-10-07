@@ -29,7 +29,11 @@
         >
           <h3 class="font-bold text-xl">Contact Notes</h3>
           <ul>
-            <li v-for="notesList in contactDetails.notes" :key="notesList.id">
+            <li
+              v-for="notesList in contactDetails.notes"
+              :key="notesList.id"
+              class="list-decimal ml-8 mb-2 border-b-2"
+            >
               {{ notesList.note }}
             </li>
           </ul>
