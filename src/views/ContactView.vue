@@ -91,7 +91,7 @@ ul.pagination {
   margin-top: 30px;
 }
 li.pagination-page-nav.active {
-  background-color: #ed6f33;
+  background-color: #047b04;
   color: #ffffff;
 }
 li.pagination-page-nav {
