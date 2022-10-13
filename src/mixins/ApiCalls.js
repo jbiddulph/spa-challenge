@@ -4,9 +4,7 @@ export default {
   methods: {
     async getAllCompanies() {
       this.isLoading = true;
-      let response = await axios.get(
-        "https://ui-test.tshirtandsons.com/api/companies"
-      );
+      let response = await axios.get("http://localhost:8000/api/companies");
       try {
         this.companies = response.data.data;
         this.isLoading = false;

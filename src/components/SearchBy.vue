@@ -49,7 +49,7 @@ export default {
   methods: {
     async searchContactCustomer() {
       let response = await axios.get(
-        `https://ui-test.tshirtandsons.com/api/contacts?name=${this.search}`
+        `http://localhost:8000/api/contacts?name=${this.search}`
       );
       console.log("Response: ", response.data.data);
       this.contacts = response.data;

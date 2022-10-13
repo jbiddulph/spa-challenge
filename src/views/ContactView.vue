@@ -64,7 +64,7 @@ export default {
     async getPaginatedContacts(pageNo = 1) {
       this.isLoading = true;
       let response = await axios.get(
-        `https://ui-test.tshirtandsons.com/api/contacts/collection?page=${pageNo}`
+        `http://localhost:8000/api/contacts?page=${pageNo}`
       );
       try {
         this.contacts = response.data;

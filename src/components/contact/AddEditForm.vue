@@ -14,6 +14,30 @@
   />
   <Form @submit="onSubmit">
     <div class="my-4">
+      <AppButton type="secondary" @click.prevent="getCompanies()">
+        Load Companies
+      </AppButton>
+    </div>
+    <div v-if="hasLoaded" class="my-4">
+      <label for="Company"
+        >Company&nbsp;<span class="text-red-700">*</span></label
+      >
+      <select
+        v-model="company_id"
+        class="w-full rounded border-2 border-gray p-2"
+        :rules="isRequired"
+      >
+        <option value="">Please select a company</option>
+        <option
+          v-for="company in companies"
+          :key="company.id"
+          :value="company.id"
+        >
+          {{ company.name }}
+        </option>
+      </select>
+    </div>
+    <div class="my-4">
       <label for="First Name"
         >First Name&nbsp;<span class="text-red-700">*</span></label
       >
@@ -182,8 +206,10 @@ export default {
   },
   data() {
     return {
+      hasLoaded: false,
       headerText: "",
       buttonText: "",
+      company_id: "",
       first_name: "",
       last_name: "",
       email: "",
@@ -674,10 +700,12 @@ export default {
         { code: "ZW", code3: "ZWE", name: "Zimbabwe", number: "716" },
         { code: "AX", code3: "ALA", name: "Åland Islands", number: "248" },
       ],
+      companies: [],
     };
   },
   beforeMount() {
     if (this.editing === true) {
+      this.company_id = this.contactDetails.company_id;
       this.first_name = this.contactDetails.first_name;
       this.last_name = this.contactDetails.last_name;
       this.email = this.contactDetails.email;
@@ -690,6 +718,19 @@ export default {
     }
   },
   methods: {
+    async getCompanies() {
+      console.log("getting companies...");
+      try {
+        let response = await axios.get(
+          "http://localhost:8000/api/companies/all"
+        );
+        this.hasLoaded = true;
+        this.companies = response.data.companies;
+        console.log("Response: " + response);
+      } catch (error) {
+        console.log("Error: ", error);
+      }
+    },
     isRequired(value) {
       if (value && value.trim()) {
         return true;
@@ -722,6 +763,7 @@ export default {
     },
     onSubmit() {
       this.contact = {
+        company_id: this.company_id,
         first_name: this.first_name,
         last_name: this.last_name,
         email: this.email,
@@ -735,10 +777,7 @@ export default {
       try {
         if (!this.editing) {
           axios
-            .post(
-              "https://ui-test.tshirtandsons.com/api/contacts",
-              this.contact
-            )
+            .post("http://localhost:8000/api/contact", this.contact)
             .then(() => {
               this.alertShow = true;
               this.alertClasses =
@@ -750,7 +789,7 @@ export default {
         } else {
           axios
             .put(
-              `https://ui-test.tshirtandsons.com/api/contacts/${this.contactDetails.id}`,
+              `http://localhost:8000/api/contacts/${this.contactDetails.id}`,
               this.contact
             )
             .then(() => {

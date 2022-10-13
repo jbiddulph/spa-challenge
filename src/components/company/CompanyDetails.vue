@@ -9,7 +9,7 @@
       <h3 class="text-center text-xl my-10">Contacts</h3>
       <ul>
         <li v-for="contact in companyContacts" :key="contact.id">
-          {{ contact }}
+          {{ contact.first_name }}&nbsp;{{ contact.last_name }}
         </li>
       </ul>
     </div>
@@ -30,24 +30,24 @@ export default {
   },
   methods: {
     async getCompanyDetails() {
-      this.isLoading = true;
-      let company = await axios.get(
-        `https://ui-test.tshirtandsons.com/api/companies/${this.$route.params.id}`
-      );
       try {
-        this.companyDetails = company.data.data;
+        this.isLoading = true;
+        let company = await axios.get(
+          `http://localhost:8000/api/company/${this.$route.params.id}`
+        );
+        this.companyDetails = company.data.company;
         this.isLoading = false;
       } catch (error) {
         console.log("Error: ", error.message);
       }
     },
     async getCompanyContacts() {
-      this.isLoading = true;
-      let contacts = await axios.get(
-        `https://ui-test.tshirtandsons.com/api/companies/${this.$route.params.id}/contacts`
-      );
       try {
-        this.companyContacts = contacts.data.data.contacts;
+        this.isLoading = true;
+        let contacts = await axios.get(
+          `http://localhost:8000/api/company/${this.$route.params.id}/contacts`
+        );
+        this.companyContacts = contacts.data.contacts;
         this.isLoading = false;
       } catch (error) {
         console.log("Error: ", error.message);

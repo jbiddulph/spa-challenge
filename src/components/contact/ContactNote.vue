@@ -57,7 +57,7 @@ export default {
     async addNote() {
       try {
         let result = await axios.put(
-          `https://ui-test.tshirtandsons.com/api/contacts/${this.$route.params.id}/note`,
+          `http://localhost:8000/api/contacts/${this.$route.params.id}/note`,
           {
             note: this.note,
           }
