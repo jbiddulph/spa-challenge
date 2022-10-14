@@ -182,10 +182,10 @@ export default {
   mounted() {
     this.getItems();
   },
-  // computed: {
-  //   ...mapState("auth", {
-  //     firstName: (state) => state.name,
-  //   }),
-  // },
+  computed: {
+    ...mapState("auth", {
+      firstName: (state) => state.name,
+    }),
+  },
 };
 </script>
