@@ -28,6 +28,20 @@
       <li class="my-8 md:my-0 md:mx-4">
         <router-link
           class="rounded bg-gray-500 hover:bg-dark-green text-slate-300 p-2"
+          to="/login"
+          >Login</router-link
+        >
+      </li>
+      <li class="my-8 md:my-0 md:mx-4">
+        <router-link
+          class="rounded bg-gray-500 hover:bg-dark-green text-slate-300 p-2"
+          to="/signup"
+          >Register</router-link
+        >
+      </li>
+      <li class="my-8 md:my-0 md:mx-4">
+        <router-link
+          class="rounded bg-gray-500 hover:bg-dark-green text-slate-300 p-2"
           to="/companies"
           >Companies</router-link
         >
