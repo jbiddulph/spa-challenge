@@ -1,21 +1,15 @@
 <template>
   <div class="home">
-    <NavBar />
     <div class="container mx-auto max-w-1100 my-16 p-4 md:p-0">
-      <h3>This is the homepage</h3>
+      <h3 v-if="user">Welcome {{ user.name }}</h3>
+      <h3 v-if="!user">Welcome to the CRM - you are not logged in</h3>
     </div>
   </div>
-  <Footer />
 </template>
 
 <script>
-import NavBar from "@/components/NavBar.vue";
-import Footer from "@/components/Footer.vue";
 export default {
   name: "HomeView",
-  components: {
-    NavBar,
-    Footer,
-  },
+  props: ["user"],
 };
 </script>

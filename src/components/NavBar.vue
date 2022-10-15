@@ -15,6 +15,35 @@
       <i :class="[open ? 'fa-solid fa-times' : 'fa-solid fa-bars']"></i>
     </span>
     <ul
+      v-if="user"
+      class="md:flex items-center cursor-pointer md:px-0 px-10 md:pb-0 pb-10 md:static absolute bg-gray-900 md:w-auto w-full top-14 duration-700 ease-in"
+      :class="[open ? 'left-0' : 'hidden']"
+    >
+      <li class="my-8 md:my-0 md:mx-4">
+        <router-link
+          class="rounded bg-gray-500 hover:bg-dark-green text-slate-300 p-2"
+          to="/"
+          >Home</router-link
+        >
+      </li>
+      <li class="my-8 md:my-0 md:mx-4">
+        <router-link
+          class="rounded bg-gray-500 hover:bg-dark-green text-slate-300 p-2"
+          to="/companies"
+          >Companies</router-link
+        >
+      </li>
+      <li class="my-8 md:my-0 md:mx-4">
+        <router-link
+          class="rounded bg-gray-500 hover:bg-dark-green text-slate-300 p-2"
+          to="/contacts"
+          >Contacts</router-link
+        >
+      </li>
+      <li><SearchBy /></li>
+    </ul>
+    <ul
+      v-if="!user"
       class="md:flex items-center cursor-pointer md:px-0 px-10 md:pb-0 pb-10 md:static absolute bg-gray-900 md:w-auto w-full top-14 duration-700 ease-in"
       :class="[open ? 'left-0' : 'hidden']"
     >
@@ -39,21 +68,6 @@
           >Register</router-link
         >
       </li>
-      <li class="my-8 md:my-0 md:mx-4">
-        <router-link
-          class="rounded bg-gray-500 hover:bg-dark-green text-slate-300 p-2"
-          to="/companies"
-          >Companies</router-link
-        >
-      </li>
-      <li class="my-8 md:my-0 md:mx-4">
-        <router-link
-          class="rounded bg-gray-500 hover:bg-dark-green text-slate-300 p-2"
-          to="/contacts"
-          >Contacts</router-link
-        >
-      </li>
-      <li><SearchBy /></li>
     </ul>
   </div>
 </template>
@@ -65,6 +79,7 @@ export default {
   components: {
     SearchBy,
   },
+  props: ["user"],
   data() {
     return {
       open: false,

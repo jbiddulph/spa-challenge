@@ -1,50 +1,49 @@
 <template>
-  <NavBar />
-  <div :class="{ 'is-loading': isLoading }">&nbsp;</div>
-  <div v-if="!isLoading" class="container max-w-6xl mx-auto my-20">
-    <div class="flex justify-between mx-8 md:mx-4 mb-4">
-      <h2 v-show="!isLoading" class="text-2xl text-center">Contacts</h2>
-      <AppButton
-        type="secondary"
-        :processing="isLoading"
-        @click.prevent="isOpen = true"
+  <div>
+    <div :class="{ 'is-loading': isLoading }">&nbsp;</div>
+    <div v-if="!isLoading" class="container max-w-6xl mx-auto my-20">
+      <div class="flex justify-between mx-8 md:mx-4 mb-4">
+        <h2 v-show="!isLoading" class="text-2xl text-center">Contacts</h2>
+        <AppButton
+          type="secondary"
+          :processing="isLoading"
+          @click.prevent="isOpen = true"
+        >
+          Add New Contact
+        </AppButton>
+      </div>
+      <ListItems :listItems="contacts.data" type="contact" />
+      <Pagination
+        :data="contacts"
+        @pagination-change-page="getPaginatedContacts"
       >
-        Add New Contact
-      </AppButton>
+        <template #prev-nav>
+          <span>&lt; Previous</span>
+        </template>
+        <template #next-nav>
+          <span>Next &gt;</span>
+        </template>
+      </Pagination>
+      <ModalWindow :open="isOpen" @close="this.isOpen = !this.isOpen">
+        <AddEditForm />
+      </ModalWindow>
     </div>
-    <ListItems :listItems="contacts.data" type="contact" />
-    <Pagination :data="contacts" @pagination-change-page="getPaginatedContacts">
-      <template #prev-nav>
-        <span>&lt; Previous</span>
-      </template>
-      <template #next-nav>
-        <span>Next &gt;</span>
-      </template>
-    </Pagination>
-    <ModalWindow :open="isOpen" @close="this.isOpen = !this.isOpen">
-      <AddEditForm />
-    </ModalWindow>
   </div>
-  <Footer v-if="!isLoading" />
 </template>
 
 <script>
 import { ref } from "vue";
 import AppButton from "@/components/AppButton.vue";
 import axios from "axios";
-import NavBar from "@/components/NavBar.vue";
 import ListItems from "@/components/ListItems.vue";
 import LaravelVuePagination from "laravel-vue-pagination";
 import ModalWindow from "@/components/ModalWindow.vue";
 import AddEditForm from "@/components/contact/AddEditForm.vue";
-import Footer from "@/components/Footer.vue";
 export default {
   name: "ContactPage",
   components: {
     AppButton,
-    NavBar,
     ListItems,
-    Footer,
     Pagination: LaravelVuePagination,
     ModalWindow,
     AddEditForm,

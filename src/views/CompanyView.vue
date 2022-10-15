@@ -24,19 +24,15 @@
 import { ref } from "vue";
 import ApiCalls from "@/mixins/ApiCalls";
 // import AppButton from "@/components/AppButton.vue";
-import NavBar from "@/components/NavBar.vue";
 import ListItems from "@/components/ListItems.vue";
 import ModalWindow from "@/components/ModalWindow.vue";
-import Footer from "@/components/Footer.vue";
 export default {
   mixins: [ApiCalls],
   name: "CompanyPage",
   components: {
     // AppButton,
-    NavBar,
     ListItems,
     ModalWindow,
-    Footer,
   },
   data() {
     return {
