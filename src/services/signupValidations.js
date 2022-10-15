@@ -24,4 +24,8 @@ export default class signupValidations {
 
     return errors;
   }
+
+  static getErrorMessageFromCode(errorCode) {
+    return errorCode;
+  }
 }

@@ -45,7 +45,7 @@ export default {
       try {
         this.isLoading = true;
         let contacts = await axios.get(
-          `http://localhost:8000/api/company/${this.$route.params.id}/contacts`
+          `company/${this.$route.params.id}/contacts`
         );
         this.companyContacts = contacts.data.contacts;
         this.isLoading = false;

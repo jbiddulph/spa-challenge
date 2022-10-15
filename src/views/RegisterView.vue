@@ -20,6 +20,12 @@
               Once you have signed in you can view the dashboard and add/edit
               items
             </p>
+            <div
+              v-if="error"
+              class="p-4 mb-4 bg-red-100 border-2 rounded border-red-200 text-red-600"
+            >
+              {{ error }}
+            </div>
             <form @submit.prevent="register">
               <!-- Name input -->
               <div class="mb-6">
@@ -107,7 +113,12 @@
 </template>
 
 <script>
-import axios from "axios";
+import { mapActions, mapMutations } from "vuex";
+import {
+  LOADING_SPINNER_SHOW_MUTATION,
+  SIGNUP_ACTION,
+} from "@/store/storeconstants";
+import signupValidations from "../services/signupValidations";
 export default {
   name: "RegisterView",
   data() {
@@ -120,16 +131,36 @@ export default {
       user: {},
       isloading: false,
       errors: [],
+      error: "",
     };
   },
   methods: {
+    ...mapActions("auth", {
+      signup: SIGNUP_ACTION,
+    }),
+    ...mapMutations({
+      showLoading: LOADING_SPINNER_SHOW_MUTATION,
+    }),
     async register() {
-      await axios.post("register", {
+      // validate
+      let validations = new signupValidations(this.email, this.password);
+      this.errors = validations.checkValidations();
+      if (this.errors.length) {
+        return false;
+      }
+      const data = {
         name: this.name,
         email: this.email,
         password: this.password,
+      };
+      // Loading spinner true
+      this.showLoading(true);
+      await this.signup(data).catch((error) => {
+        this.error = error;
+        this.showLoading(false);
       });
-      this.$router.push("/login");
+      // Loading spinner false
+      this.showLoading(false);
     },
   },
 };

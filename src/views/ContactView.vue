@@ -4,6 +4,7 @@
     <div v-if="!isLoading" class="container max-w-6xl mx-auto my-20">
       <div class="flex justify-between mx-8 md:mx-4 mb-4">
         <h2 v-show="!isLoading" class="text-2xl text-center">Contacts</h2>
+
         <AppButton
           type="secondary"
           :processing="isLoading"
@@ -39,6 +40,8 @@ import ListItems from "@/components/ListItems.vue";
 import LaravelVuePagination from "laravel-vue-pagination";
 import ModalWindow from "@/components/ModalWindow.vue";
 import AddEditForm from "@/components/contact/AddEditForm.vue";
+import { mapGetters } from "vuex";
+import { GET_USER_TOKEN_GETTER } from "@/store/storeconstants";
 export default {
   name: "ContactPage",
   components: {
@@ -47,6 +50,11 @@ export default {
     Pagination: LaravelVuePagination,
     ModalWindow,
     AddEditForm,
+  },
+  computed: {
+    ...mapGetters("auth", {
+      token: GET_USER_TOKEN_GETTER,
+    }),
   },
   data() {
     return {
@@ -63,7 +71,8 @@ export default {
     async getPaginatedContacts(pageNo = 1) {
       this.isLoading = true;
       let response = await axios.get(
-        `http://localhost:8000/api/contacts?page=${pageNo}`
+        `contacts?page=${pageNo}`,
+        "Bearer: " + this.token
       );
       try {
         this.contacts = response.data;

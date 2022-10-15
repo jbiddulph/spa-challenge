@@ -20,6 +20,12 @@
               Once you have signed in you can view the dashboard and add/edit
               items
             </p>
+            <div
+              v-if="error"
+              class="p-4 mb-4 bg-red-100 border-2 rounded border-red-200 text-red-600"
+            >
+              {{ error }}
+            </div>
             <form @submit.prevent="handleLogin">
               <!-- Email input -->
               <div class="mb-6">
@@ -89,8 +95,12 @@
 
 <script>
 import axios from "axios";
-import { mapState } from "vuex";
+import { mapState, mapActions, mapMutations } from "vuex";
 import signupValidations from "../services/signupValidations";
+import {
+  LOADING_SPINNER_SHOW_MUTATION,
+  LOGIN_ACTION,
+} from "@/store/storeconstants";
 export default {
   name: "LoginView",
   data() {
@@ -104,42 +114,39 @@ export default {
       itemsList: [],
       fakeData: [],
       errors: [],
+      error: "",
     };
   },
   methods: {
-    getFakeData() {
-      axios.get("https://jsonplaceholder.typicode.com/todos").then((res) => {
-        this.fakeData = res.data;
-      });
-    },
-    async handleLogin() {
-      try {
-        // validate
-        let validations = new signupValidations(this.email, this.password);
-        this.errors = validations.checkValidations();
-        if (this.errors.length) {
-          return false;
-        }
-        const data = {
-          email: this.email,
-          password: this.password,
-        };
-        this.isloading = true;
-        // Login the user
-        let response = await axios.post("login", data);
-        localStorage.setItem("token", response.data.authorisation.token);
-        this.isloading = false;
-        this.$router.push("/");
-      } catch (error) {
-        this.isloading = false;
-        console.log(error);
-      }
-    },
-  },
-  computed: {
-    ...mapState("auth", {
-      firstName: (state) => state.name,
+    ...mapActions("auth", {
+      login: LOGIN_ACTION,
     }),
+    ...mapMutations({
+      showLoading: LOADING_SPINNER_SHOW_MUTATION,
+    }),
+    async handleLogin() {
+      // validate
+      let validations = new signupValidations(this.email, this.password);
+      this.errors = validations.checkValidations();
+      if (this.errors.length) {
+        return false;
+      }
+      const data = {
+        email: this.email,
+        password: this.password,
+      };
+      this.error = "";
+      this.showLoading(true);
+      // Login the user
+      try {
+        await this.login(data);
+      } catch (error) {
+        this.error = error;
+        this.showLoading(false);
+      }
+      this.showLoading(false);
+      this.$router.push("/");
+    },
   },
 };
 </script>

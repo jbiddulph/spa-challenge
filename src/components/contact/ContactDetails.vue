@@ -71,19 +71,15 @@ export default {
   methods: {
     async getContactDetails() {
       this.isLoading = true;
-      let response = await axios.get(
-        `http://localhost:8000/api/contact/${this.$route.params.id}`
-      );
+      let response = await axios.get(`contact/${this.$route.params.id}`);
       try {
         this.contactDetails = response.data.contact;
         this.firstName = this.contactDetails.first_name;
         this.lastName = this.contactDetails.last_name;
         this.company_id = this.contactDetails.company_id;
-        axios
-          .get(`http://localhost:8000/api/company/${this.company_id}`)
-          .then((companyDetails) => {
-            this.company = companyDetails.data.company;
-          });
+        axios.get(`company/${this.company_id}`).then((companyDetails) => {
+          this.company = companyDetails.data.company;
+        });
         this.isLoading = false;
       } catch (error) {
         console.log("Error: ", error.message);

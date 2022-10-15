@@ -15,7 +15,7 @@
       <i :class="[open ? 'fa-solid fa-times' : 'fa-solid fa-bars']"></i>
     </span>
     <ul
-      v-if="user"
+      v-if="isAuthenticated"
       class="md:flex items-center cursor-pointer md:px-0 px-10 md:pb-0 pb-10 md:static absolute bg-gray-900 md:w-auto w-full top-14 duration-700 ease-in"
       :class="[open ? 'left-0' : 'hidden']"
     >
@@ -40,10 +40,18 @@
           >Contacts</router-link
         >
       </li>
+      <li class="my-8 md:my-0 md:mx-4">
+        <a
+          class="rounded bg-gray-500 hover:bg-dark-green text-slate-300 p-2"
+          href="javascript:void(0)"
+          @click="handleLogout"
+          >Logout</a
+        >
+      </li>
       <li><SearchBy /></li>
     </ul>
     <ul
-      v-if="!user"
+      v-if="!isAuthenticated"
       class="md:flex items-center cursor-pointer md:px-0 px-10 md:pb-0 pb-10 md:static absolute bg-gray-900 md:w-auto w-full top-14 duration-700 ease-in"
       :class="[open ? 'left-0' : 'hidden']"
     >
@@ -73,13 +81,20 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import SearchBy from "@/components/SearchBy.vue";
+import { IS_USER_AUTHENTICATED_GETTER } from "@/store/storeconstants";
 export default {
   name: "NavBar",
   components: {
     SearchBy,
   },
   props: ["user"],
+  computed: {
+    ...mapGetters("auth", {
+      isAuthenticated: IS_USER_AUTHENTICATED_GETTER,
+    }),
+  },
   data() {
     return {
       open: false,
@@ -88,6 +103,10 @@ export default {
   methods: {
     menuOpen() {
       this.open = !this.open;
+    },
+    handleLogout() {
+      localStorage.removeItem("token");
+      this.$router.push("/");
     },
   },
 };

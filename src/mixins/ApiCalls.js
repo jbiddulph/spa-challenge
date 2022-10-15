@@ -4,7 +4,7 @@ export default {
   methods: {
     async getAllCompanies() {
       this.isLoading = true;
-      let response = await axios.get("http://localhost:8000/api/companies");
+      let response = await axios.get("companies");
       try {
         this.companies = response.data.data;
         this.isLoading = false;
