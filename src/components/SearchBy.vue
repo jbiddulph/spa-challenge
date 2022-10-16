@@ -48,9 +48,7 @@ export default {
   },
   methods: {
     async searchContactCustomer() {
-      let response = await axios.get(
-        `http://localhost:8000/api/contacts?name=${this.search}`
-      );
+      let response = await axios.get(`contacts?name=${this.search}`);
       console.log("Response: ", response.data.data);
       this.contacts = response.data;
     },

@@ -118,7 +118,6 @@ import {
   LOADING_SPINNER_SHOW_MUTATION,
   SIGNUP_ACTION,
 } from "@/store/storeconstants";
-import signupValidations from "../services/signupValidations";
 export default {
   name: "RegisterView",
   data() {
@@ -127,9 +126,6 @@ export default {
       email: "",
       password: "",
       password_confirm: "",
-      token: localStorage.getItem("token") || "",
-      user: {},
-      isloading: false,
       errors: [],
       error: "",
     };
@@ -142,12 +138,6 @@ export default {
       showLoading: LOADING_SPINNER_SHOW_MUTATION,
     }),
     async register() {
-      // validate
-      let validations = new signupValidations(this.email, this.password);
-      this.errors = validations.checkValidations();
-      if (this.errors.length) {
-        return false;
-      }
       const data = {
         name: this.name,
         email: this.email,
@@ -159,6 +149,7 @@ export default {
         this.error = error;
         this.showLoading(false);
       });
+      this.$router.push("/");
       // Loading spinner false
       this.showLoading(false);
     },

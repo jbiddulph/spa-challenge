@@ -12,8 +12,15 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+import { IS_USER_AUTHENTICATED_GETTER } from "@/store/storeconstants";
 export default {
   name: "HomeView",
   props: ["user"],
+  computed: {
+    ...mapGetters("auth", {
+      isAuthenticated: IS_USER_AUTHENTICATED_GETTER,
+    }),
+  },
 };
 </script>

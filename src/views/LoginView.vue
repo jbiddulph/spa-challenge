@@ -14,7 +14,7 @@
           </div>
           <div class="md:w-8/12 lg:w-5/12 lg:ml-20">
             <h3 class="text-left font-bold text-xl mb-4">
-              {{ firstName }}<br />Sign in with your email and password
+              Sign in with your email and password
             </h3>
             <p class="text-left text-sm mb-8">
               Once you have signed in you can view the dashboard and add/edit
@@ -74,29 +74,12 @@
           </div>
         </div>
       </div>
-      <!-- <h3>Items</h3>
-      <ul>
-        <li class="bg-red-500" v-for="item in itemsList" :key="item.id">
-          {{ item[0].title }}
-          {{ item[0].description }}
-        </li>
-      </ul>
-      <h3>fakeData</h3>
-      {{ fakeData }}
-      <ul>
-        <li class="bg-red-500" v-for="fake in fakeData" :key="fake.id">
-          {{ fake.title }}
-          {{ fake.completed }}
-        </li>
-      </ul> -->
     </section>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-import { mapState, mapActions, mapMutations } from "vuex";
-import signupValidations from "../services/signupValidations";
+import { mapActions, mapMutations } from "vuex";
 import {
   LOADING_SPINNER_SHOW_MUTATION,
   LOGIN_ACTION,
@@ -109,10 +92,6 @@ export default {
       name: "",
       email: "",
       password: "",
-      user: {},
-      isloading: false,
-      itemsList: [],
-      fakeData: [],
       errors: [],
       error: "",
     };
@@ -125,12 +104,6 @@ export default {
       showLoading: LOADING_SPINNER_SHOW_MUTATION,
     }),
     async handleLogin() {
-      // validate
-      let validations = new signupValidations(this.email, this.password);
-      this.errors = validations.checkValidations();
-      if (this.errors.length) {
-        return false;
-      }
       const data = {
         email: this.email,
         password: this.password,
@@ -140,12 +113,12 @@ export default {
       // Login the user
       try {
         await this.login(data);
+        this.$router.push("/");
       } catch (error) {
         this.error = error;
         this.showLoading(false);
       }
       this.showLoading(false);
-      this.$router.push("/");
     },
   },
 };

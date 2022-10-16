@@ -44,7 +44,7 @@
         <a
           class="rounded bg-gray-500 hover:bg-dark-green text-slate-300 p-2"
           href="javascript:void(0)"
-          @click="handleLogout"
+          @click.prevent="handleLogout"
           >Logout</a
         >
       </li>
@@ -81,9 +81,12 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import SearchBy from "@/components/SearchBy.vue";
-import { IS_USER_AUTHENTICATED_GETTER } from "@/store/storeconstants";
+import {
+  IS_USER_AUTHENTICATED_GETTER,
+  LOGOUT_ACTION,
+} from "@/store/storeconstants";
 export default {
   name: "NavBar",
   components: {
@@ -101,12 +104,15 @@ export default {
     };
   },
   methods: {
+    ...mapActions("auth", {
+      logout: LOGOUT_ACTION,
+    }),
     menuOpen() {
       this.open = !this.open;
     },
     handleLogout() {
-      localStorage.removeItem("token");
-      this.$router.push("/");
+      this.logout();
+      this.$router.replace("/login");
     },
   },
 };

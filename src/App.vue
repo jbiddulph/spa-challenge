@@ -13,6 +13,7 @@ import NavBar from "@/components/NavBar.vue";
 import Footer from "@/components/Footer.vue";
 import TheLoader from "@/components/TheLoader.vue";
 import { mapState } from "vuex";
+import { AUTO_LOGIN_ACTION } from "./store/storeconstants";
 export default {
   name: "App",
   components: {
@@ -31,6 +32,7 @@ export default {
     };
   },
   async created() {
+    this.$store.dispatch(`auth/${AUTO_LOGIN_ACTION}`);
     const response = await axios.get("user");
     this.user = response.data;
   },
