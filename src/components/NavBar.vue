@@ -3,10 +3,12 @@
     class="bg-gray-900 text-gray-100 py-4 px-6 shadow md:flex justify-between items-center"
   >
     <div class="flex items-center">
-      <span class="text-dark-green text-cl mr-1">
+      <span class="text-light-green text-cl mr-1">
         <i class="fa-solid fa-star"></i>
       </span>
-      <h1 class="text-xl">jbiddulph</h1>
+      <router-link to="/" class="p-2">
+        <h1 class="text-xl">jbiddulph</h1>
+      </router-link>
     </div>
     <span
       @click="menuOpen"
@@ -19,28 +21,28 @@
       class="md:flex items-center cursor-pointer md:px-0 px-10 md:pb-0 pb-10 md:static absolute bg-gray-900 md:w-auto w-full top-14 duration-700 ease-in"
       :class="[open ? 'left-0' : 'hidden']"
     >
-      <li class="my-8 md:my-0 md:mx-4">
+      <li class="my-8 md:my-0 md:mx-2">
         <router-link
           class="rounded bg-gray-500 hover:bg-dark-green text-slate-300 p-2"
           to="/"
           >Home</router-link
         >
       </li>
-      <li class="my-8 md:my-0 md:mx-4">
+      <li class="my-8 md:my-0 md:mx-2">
         <router-link
           class="rounded bg-gray-500 hover:bg-dark-green text-slate-300 p-2"
           to="/companies"
           >Companies</router-link
         >
       </li>
-      <li class="my-8 md:my-0 md:mx-4">
+      <li class="my-8 md:my-0 md:mx-2">
         <router-link
           class="rounded bg-gray-500 hover:bg-dark-green text-slate-300 p-2"
           to="/contacts"
           >Contacts</router-link
         >
       </li>
-      <li class="my-8 md:my-0 md:mx-4">
+      <li class="my-8 md:my-0 md:mx-2">
         <a
           class="rounded bg-gray-500 hover:bg-dark-green text-slate-300 p-2"
           href="javascript:void(0)"
@@ -55,21 +57,21 @@
       class="md:flex items-center cursor-pointer md:px-0 px-10 md:pb-0 pb-10 md:static absolute bg-gray-900 md:w-auto w-full top-14 duration-700 ease-in"
       :class="[open ? 'left-0' : 'hidden']"
     >
-      <li class="my-8 md:my-0 md:mx-4">
+      <li class="my-8 md:my-0 md:mx-2">
         <router-link
           class="rounded bg-gray-500 hover:bg-dark-green text-slate-300 p-2"
           to="/"
           >Home</router-link
         >
       </li>
-      <li class="my-8 md:my-0 md:mx-4">
+      <li class="my-8 md:my-0 md:mx-2">
         <router-link
           class="rounded bg-gray-500 hover:bg-dark-green text-slate-300 p-2"
           to="/login"
           >Login</router-link
         >
       </li>
-      <li class="my-8 md:my-0 md:mx-4">
+      <li class="my-8 md:my-0 md:mx-2">
         <router-link
           class="rounded bg-gray-500 hover:bg-dark-green text-slate-300 p-2"
           to="/signup"

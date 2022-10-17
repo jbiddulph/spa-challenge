@@ -2,6 +2,8 @@ import signupValidations from "@/services/signupValidations";
 import {
   SIGNUP_ACTION,
   LOGIN_ACTION,
+  USER_ACTION,
+  SET_USER_MUTATION,
   SET_USER_TOKEN_DATA_MUTATION,
   LOGOUT_ACTION,
   AUTH_ACTION,
@@ -19,6 +21,7 @@ export default {
       token: null,
       userId: null,
     });
+    context.dispatch(USER_ACTION, "null");
     localStorage.removeItem("token");
     localStorage.removeItem("userData");
     if (timer) {
@@ -40,6 +43,9 @@ export default {
       ...payload,
       url: "register",
     });
+  },
+  [USER_ACTION](context, payload) {
+    context.commit(SET_USER_MUTATION, payload);
   },
   [AUTO_LOGIN_ACTION](context) {
     let userDataString = localStorage.getItem("userData");
@@ -74,8 +80,9 @@ export default {
       throw errorMsg;
     }
     console.log("Response: ", response.data);
+    context.dispatch(USER_ACTION, response.data.user);
     if (response.status === 200) {
-      let expirationTime = +10 * 1000;
+      let expirationTime = +3600 * 1000;
       timer = setTimeout(() => {
         context.dispatch(AUTO_LOGOUT_ACTION);
       }, expirationTime);

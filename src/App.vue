@@ -1,19 +1,24 @@
 <template>
-  <div>
-    <NavBar :user="user" />
+  <div class="max-h-screen">
+    <NavBar />
     <the-loader v-if="showLoading"></the-loader>
-    <router-view :user="user" />
+    <router-view />
     <Footer />
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import axios from "axios";
 import NavBar from "@/components/NavBar.vue";
 import Footer from "@/components/Footer.vue";
 import TheLoader from "@/components/TheLoader.vue";
 import { mapState } from "vuex";
-import { AUTO_LOGIN_ACTION } from "./store/storeconstants";
+import {
+  AUTO_LOGIN_ACTION,
+  USER_GETTER,
+  USER_ACTION,
+} from "./store/storeconstants";
 export default {
   name: "App",
   components: {
@@ -26,6 +31,9 @@ export default {
       showLoading: (state) => state.showLoading,
       autoLogout: (state) => state.auth.autoLogout,
     }),
+    ...mapGetters("auth", {
+      user: USER_GETTER,
+    }),
   },
   watch: {
     autoLogout(curValue, oldValue) {
@@ -34,15 +42,10 @@ export default {
       }
     },
   },
-  data() {
-    return {
-      user: null,
-    };
-  },
   async created() {
     this.$store.dispatch(`auth/${AUTO_LOGIN_ACTION}`);
     const response = await axios.get("user");
-    this.user = response.data;
+    this.$store.dispatch(`auth/${USER_ACTION}`, response.data);
   },
 };
 </script>
