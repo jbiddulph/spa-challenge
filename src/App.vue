@@ -24,11 +24,19 @@ export default {
   computed: {
     ...mapState({
       showLoading: (state) => state.showLoading,
+      autoLogout: (state) => state.auth.autoLogout,
     }),
+  },
+  watch: {
+    autoLogout(curValue, oldValue) {
+      if (curValue && curValue != oldValue) {
+        this.$router.replace("/login");
+      }
+    },
   },
   data() {
     return {
-      user: "",
+      user: null,
     };
   },
   async created() {

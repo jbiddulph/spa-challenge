@@ -10,6 +10,7 @@ export default {
       email: "",
       token: "",
       userId: "",
+      autoLogout: false,
     };
   },
   mutations,
