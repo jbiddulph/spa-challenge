@@ -46,6 +46,7 @@
         type="text"
         placeholder="First Name"
         v-model="first_name"
+        :value="editing ? contactDetails.first_name : first_name"
         class="w-full rounded border-2 border-gray p-2"
         :rules="isRequired"
       />
@@ -195,6 +196,10 @@ export default {
     AlertBox,
   },
   props: {
+    id: {
+      type: Number,
+      default: null,
+    },
     editing: {
       type: Boolean,
       default: false,
@@ -703,8 +708,8 @@ export default {
       companies: [],
     };
   },
-  beforeMount() {
-    if (this.editing === true) {
+  created() {
+    if (this.contactDetails) {
       this.company_id = this.contactDetails.company_id;
       this.first_name = this.contactDetails.first_name;
       this.last_name = this.contactDetails.last_name;
@@ -719,7 +724,7 @@ export default {
   },
   methods: {
     async getCompanies() {
-      console.log("getting companies...");
+      console.log("getting companies..");
       try {
         let response = await axios.get("companies/all");
         this.hasLoaded = true;
@@ -783,16 +788,14 @@ export default {
             this.$emit("close");
           });
         } else {
-          axios
-            .put(`contacts/${this.contactDetails.id}`, this.contact)
-            .then(() => {
-              this.alertShow = true;
-              this.alertClasses =
-                "bg-green-300 rounded border-2 border-green-500 p-2";
-              this.alertText = "Success, your contact has been updated!";
-              this.clearFields();
-              this.$emit("close");
-            });
+          axios.put(`contacts/${id}`, this.contact).then(() => {
+            this.alertShow = true;
+            this.alertClasses =
+              "bg-green-300 rounded border-2 border-green-500 p-2";
+            this.alertText = "Success, your contact has been updated!";
+            this.clearFields();
+            this.$emit("close");
+          });
         }
       } catch (error) {
         console.log("ERROR: ", error);

@@ -13,14 +13,19 @@
           >View&nbsp;&nbsp;<i class="fa-solid fa-info-circle"></i
         ></AppButton>
       </router-link>
-      <router-link :to="`/contact/${contactDetails.id}`">
-        <AppButton type="edit" :processing="isLoading" @click.prevent="editMode"
-          >Edit&nbsp;&nbsp;<i class="fa-solid fa-pencil"></i
-        ></AppButton>
-      </router-link>
+      <AppButton
+        type="edit"
+        :processing="isLoading"
+        @click.prevent="editMode(contactDetails.id)"
+        >Edit&nbsp;&nbsp;<i class="fa-solid fa-pencil"></i
+      ></AppButton>
     </div>
     <ModalWindow :open="isOpen" @close="this.isOpen = !this.isOpen">
-      <AddEditForm :editing="isEdit" :contactDetails="contactDetails" />
+      <AddEditForm
+        :editing="isEdit"
+        :contactDetails="contactDetails"
+        :id="id"
+      />
     </ModalWindow>
   </div>
 </template>
@@ -46,6 +51,7 @@ export default {
       last_name: "",
       isOpen: ref(false),
       isEdit: false,
+      id: null,
     };
   },
   mounted() {
@@ -58,9 +64,12 @@ export default {
     },
   },
   methods: {
-    editMode() {
-      this.isOpen = true;
-      this.isEdit = true;
+    editMode(id) {
+      if (id) {
+        this.id = id;
+        this.isOpen = true;
+        this.isEdit = true;
+      }
     },
   },
 };

@@ -4,7 +4,7 @@ export function useAxios() {
   function getAllCompanies() {
     this.isLoading = true;
     try {
-      axios.get("http://localhost:8000/api/companies").then((response) => {
+      axios.get("companies").then((response) => {
         this.companies = response.data.data;
         this.isLoading = false;
       });

@@ -14,6 +14,7 @@
         </AppButton>
       </div>
       <ListItems :listItems="contacts.data" type="contact" />
+      xx
       <Pagination
         class="w-80 md:w-auto"
         :data="contacts"
@@ -26,6 +27,7 @@
           <span>Next&nbsp;&gt;</span>
         </template>
       </Pagination>
+      xxx
       <ModalWindow :open="isOpen" @close="this.isOpen = !this.isOpen">
         <AddEditForm />
       </ModalWindow>
@@ -70,12 +72,12 @@ export default {
   },
   methods: {
     async getPaginatedContacts(pageNo = 1) {
-      this.isLoading = true;
-      let response = await axios.get(
-        `contacts?page=${pageNo}`,
-        "Bearer: " + this.token
-      );
       try {
+        this.isLoading = true;
+        let response = await axios.get(
+          `contacts?page=${pageNo}`,
+          "Bearer: " + this.token
+        );
         this.contacts = response.data;
         this.links = response.data.links;
         this.pagination = response.data.links;

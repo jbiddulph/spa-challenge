@@ -56,12 +56,9 @@ export default {
   methods: {
     async addNote() {
       try {
-        let result = await axios.put(
-          `http://localhost:8000/api/contacts/${this.$route.params.id}/note`,
-          {
-            note: this.note,
-          }
-        );
+        let result = await axios.put(`contacts/${this.$route.params.id}/note`, {
+          note: this.note,
+        });
         this.alertShow = true;
         this.alertClasses =
           "bg-green-300 rounded border-2 border-green-500 p-2 my-2";
