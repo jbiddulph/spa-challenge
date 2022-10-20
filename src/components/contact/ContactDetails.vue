@@ -26,13 +26,13 @@
           <ContactNote />
         </div>
         <div
-          v-if="contactDetails.notes && contactDetails.notes.length > 1"
+          v-if="contactDetails.notes && notes.length > 1"
           class="p-4 mt-4 md:mt-0 rounded border-2 border-gray-200 md:w-1/3"
         >
           <h3 class="font-bold text-xl">Contact Notes</h3>
           <ul>
             <li
-              v-for="notesList in contactDetails.notes"
+              v-for="notesList in notes"
               :key="notesList.id"
               class="list-decimal ml-8 mb-2 border-b-2"
             >
@@ -45,6 +45,27 @@
           class="p-4 mt-4 md:mt-0 rounded border-2 border-gray-200 md:w-1/3"
         >
           There are no notes associated with {{ fullName }}
+        </div>
+        <div
+          v-if="contactDetails.notes && notes.length > 1"
+          class="p-4 mt-4 md:mt-0 rounded border-2 border-gray-200 md:w-1/3"
+        >
+          <h3 class="font-bold text-xl">Company Contacts</h3>
+          <ul>
+            <li
+              v-for="contactsList in companyContacts"
+              :key="contactsList.id"
+              class="list-decimal ml-8 mb-2 border-b-2"
+            >
+              {{ contactsList.first_name }}
+            </li>
+          </ul>
+        </div>
+        <div
+          v-else
+          class="p-4 mt-4 md:mt-0 rounded border-2 border-gray-200 md:w-1/3"
+        >
+          There are no other contacts for this company
         </div>
       </div>
     </div>
@@ -65,7 +86,9 @@ export default {
       contactDetails: {},
       firstName: "",
       lastName: "",
+      notes: [],
       company: {},
+      companyContacts: [],
     };
   },
   methods: {
@@ -77,9 +100,9 @@ export default {
         this.firstName = this.contactDetails.first_name;
         this.lastName = this.contactDetails.last_name;
         this.company_id = this.contactDetails.company_id;
-        axios.get(`company/${this.company_id}`).then((companyDetails) => {
-          this.company = companyDetails.data.company;
-        });
+        this.company = this.contactDetails.company;
+        this.notes = this.contactDetails.notes;
+        this.companyContacts = this.contactDetails.company.contacts;
         this.isLoading = false;
       } catch (error) {
         console.log("Error: ", error.message);

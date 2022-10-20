@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import LoginView from "../views/LoginView.vue";
 import RegisterView from "../views/RegisterView.vue";
+// Todos
+import TodoView from "../views/TodoView.vue";
 // Companies
 import CompanyView from "../views/CompanyView.vue";
 import CompanyDetailsView from "../views/CompanyDetailsView.vue";
@@ -31,6 +33,14 @@ const routes = [
     component: RegisterView,
     meta: {
       auth: false,
+    },
+  },
+  {
+    path: "/todos",
+    name: "todos",
+    component: TodoView,
+    meta: {
+      auth: true,
     },
   },
   {

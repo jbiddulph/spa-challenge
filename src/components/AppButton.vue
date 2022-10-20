@@ -1,7 +1,7 @@
 <template>
   <button
     :class="{
-      'rounded p-2 px-4 disabled:cursor-not-allowed': true,
+      'rounded p-1 px-2 disabled:cursor-not-allowed text-sm': true,
       'bg-dark-green hover:bg-light-green text-white': type === 'primary',
       'bg-black text-white': type === 'secondary',
       'bg-white text-black border-2': type === 'close',
@@ -10,6 +10,8 @@
         type === 'details',
       'bg-green-300 hover:bg-green-200 rounded text-green-600 border-2 border-green-400':
         type === 'edit',
+      'bg-red-300 hover:bg-red-200 rounded text-red-600 border-2 border-red-400':
+        type === 'delete',
       'cursor-not-allowed text-gray-500 bg-gray-800': processing,
     }"
     :disabled="processing"

@@ -721,9 +721,7 @@ export default {
     async getCompanies() {
       console.log("getting companies...");
       try {
-        let response = await axios.get(
-          "http://localhost:8000/api/companies/all"
-        );
+        let response = await axios.get("companies/all");
         this.hasLoaded = true;
         this.companies = response.data.companies;
         console.log("Response: " + response);
@@ -776,22 +774,17 @@ export default {
       };
       try {
         if (!this.editing) {
-          axios
-            .post("http://localhost:8000/api/contact", this.contact)
-            .then(() => {
-              this.alertShow = true;
-              this.alertClasses =
-                "bg-green-300 rounded border-2 border-green-500 p-2 my-2";
-              this.alertText = "Success, your contact has been added!";
-              this.clearFields();
-              this.$emit("close");
-            });
+          axios.post("contact", this.contact).then(() => {
+            this.alertShow = true;
+            this.alertClasses =
+              "bg-green-300 rounded border-2 border-green-500 p-2 my-2";
+            this.alertText = "Success, your contact has been added!";
+            this.clearFields();
+            this.$emit("close");
+          });
         } else {
           axios
-            .put(
-              `http://localhost:8000/api/contacts/${this.contactDetails.id}`,
-              this.contact
-            )
+            .put(`contacts/${this.contactDetails.id}`, this.contact)
             .then(() => {
               this.alertShow = true;
               this.alertClasses =

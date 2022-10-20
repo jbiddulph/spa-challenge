@@ -32,9 +32,7 @@ export default {
     async getCompanyDetails() {
       try {
         this.isLoading = true;
-        let company = await axios.get(
-          `http://localhost:8000/api/company/${this.$route.params.id}`
-        );
+        let company = await axios.get(`company/${this.$route.params.id}`);
         this.companyDetails = company.data.company;
         this.isLoading = false;
       } catch (error) {
