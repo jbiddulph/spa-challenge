@@ -1,6 +1,10 @@
 <template>
   <div class="bg-gray-200 h-100 p-4 rounded m-4">
-    <h3 class="text-xl">{{ fullName }}</h3>
+    <h3 class="text-xl">
+      <router-link :to="`/contact/${contactDetails.id}`" class="underline">{{
+        fullName
+      }}</router-link>
+    </h3>
     <div class="my-2">
       <i class="fa-solid fa-envelope"></i>&nbsp;&nbsp;{{ contactDetails.email
       }}<br />

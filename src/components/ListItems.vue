@@ -5,10 +5,19 @@
       class="max-w-160 w-full mx-4 md:mx-0 md:w-1/3"
       v-for="item in listItems"
       :key="item.id"
+      data-item="item"
     >
-      <Company v-if="type == 'company'" :companyDetails="item" />
-      <Contact v-if="type == 'contact'" :contactDetails="item" />
-      <Todo v-if="type == 'todo'" :todoDetails="item" />
+      <Company
+        v-if="type == 'company'"
+        :companyDetails="item"
+        data-item="company"
+      />
+      <Contact
+        v-if="type == 'contact'"
+        :contactDetails="item"
+        data-item="contact"
+      />
+      <Todo v-if="type == 'todo'" :todoDetails="item" data-item="todo" />
     </li>
   </ul>
 </template>

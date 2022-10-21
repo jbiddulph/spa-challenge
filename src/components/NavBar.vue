@@ -57,7 +57,7 @@
           >Logout</a
         >
       </li>
-      <li><SearchBy /></li>
+      <!-- <li><SearchBy /></li> -->
     </ul>
     <ul
       v-if="!isAuthenticated"
@@ -91,7 +91,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import SearchBy from "@/components/SearchBy.vue";
+// import SearchBy from "@/components/SearchBy.vue";
 import {
   IS_USER_AUTHENTICATED_GETTER,
   LOGOUT_ACTION,
@@ -99,7 +99,7 @@ import {
 export default {
   name: "NavBar",
   components: {
-    SearchBy,
+    // SearchBy,
   },
   props: ["user"],
   computed: {

@@ -82,7 +82,7 @@ export default {
     console.log("Response: ", response.data);
     context.dispatch(USER_ACTION, response.data.user);
     if (response.status === 200) {
-      let expirationTime = +3600 * 1000;
+      let expirationTime = +3500 * 1000;
       timer = setTimeout(() => {
         context.dispatch(AUTO_LOGOUT_ACTION);
       }, expirationTime);

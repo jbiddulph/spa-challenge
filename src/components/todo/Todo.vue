@@ -12,6 +12,7 @@
           type="delete"
           :processing="isLoading"
           @click.prevent="editMode"
+          data-element="button"
           >Delete&nbsp;&nbsp;<i class="fa-solid fa-trash"></i
         ></AppButton>
       </router-link>

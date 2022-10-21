@@ -4,16 +4,14 @@
       editing ? (headerText = 'Edit Contact') : (headerText = 'Add Contact')
     "
     class="text-xl"
-  >
-    {{ headerText }}
-  </h2>
+  ></h2>
   <AlertBox
     :alertShow="alertShow"
     :alertClasses="alertClasses"
     :alertText="alertText"
   />
-  <Form @submit="onSubmit">
-    <div class="my-4">
+  <Form @submit="onSubmit(id)">
+    <div v-if="!editing" class="my-4">
       <AppButton type="secondary" @click.prevent="getCompanies()">
         Load Companies
       </AppButton>
@@ -36,6 +34,17 @@
           {{ company.name }}
         </option>
       </select>
+    </div>
+    <div v-if="editing" class="my-4">
+      <input name="company_id" type="hidden" v-model="company_id" />
+      <h3>
+        Company:
+        <router-link
+          :to="`/company/${contactDetails.company.id}`"
+          class="underline"
+          >{{ contactDetails.company.name }}</router-link
+        >
+      </h3>
     </div>
     <div class="my-4">
       <label for="First Name"
@@ -214,6 +223,7 @@ export default {
       hasLoaded: false,
       headerText: "",
       buttonText: "",
+      contact_id: "",
       company_id: "",
       first_name: "",
       last_name: "",
@@ -710,7 +720,7 @@ export default {
   },
   created() {
     if (this.contactDetails) {
-      this.company_id = this.contactDetails.company_id;
+      this.company_id = this.contactDetails.company.id;
       this.first_name = this.contactDetails.first_name;
       this.last_name = this.contactDetails.last_name;
       this.email = this.contactDetails.email;
@@ -720,6 +730,7 @@ export default {
       this.region_county = this.contactDetails.region_county;
       this.country_code = this.contactDetails.country_code;
       this.post_code = this.contactDetails.post_code;
+      console.log("Company_id: ", this.company_id);
     }
   },
   methods: {
@@ -764,7 +775,7 @@ export default {
       // All is good
       return true;
     },
-    onSubmit() {
+    onSubmit(id) {
       this.contact = {
         company_id: this.company_id,
         first_name: this.first_name,
@@ -788,7 +799,8 @@ export default {
             this.$emit("close");
           });
         } else {
-          axios.put(`contacts/${id}`, this.contact).then(() => {
+          console.log("CONTACT: ", this.contact);
+          axios.put(`contact/${id}`, this.contact).then(() => {
             this.alertShow = true;
             this.alertClasses =
               "bg-green-300 rounded border-2 border-green-500 p-2";

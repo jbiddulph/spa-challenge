@@ -5,7 +5,7 @@
       'bg-dark-green hover:bg-light-green text-white': type === 'primary',
       'bg-black text-white': type === 'secondary',
       'bg-white text-black border-2': type === 'close',
-      'bg-dark-green hover:bg-light-green text-black': type === 'submit',
+      'hover:bg-dark-green bg-light-green text-white': type === 'submit',
       'bg-green-300 hover:bg-green-200 w-full rounded text-green-600 border-2 border-green-400':
         type === 'details',
       'bg-green-300 hover:bg-green-200 rounded text-green-600 border-2 border-green-400':

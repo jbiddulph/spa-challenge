@@ -14,7 +14,6 @@
         </AppButton>
       </div>
       <ListItems :listItems="contacts.data" type="contact" />
-      xx
       <Pagination
         class="w-80 md:w-auto"
         :data="contacts"
@@ -27,7 +26,6 @@
           <span>Next&nbsp;&gt;</span>
         </template>
       </Pagination>
-      xxx
       <ModalWindow :open="isOpen" @close="this.isOpen = !this.isOpen">
         <AddEditForm />
       </ModalWindow>

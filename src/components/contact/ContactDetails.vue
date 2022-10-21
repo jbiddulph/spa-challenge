@@ -7,7 +7,10 @@
       class="container max-w-6xl mx-auto my-20"
     >
       <h2 class="text-2xl mb-10 text-center">
-        {{ fullName }} of {{ company.name }}
+        {{ fullName }} of
+        <router-link :to="`/company/${company.id}`" class="underline">{{
+          company.name
+        }}</router-link>
       </h2>
       <div class="flex md:flex-row flex-col p-4 md:p-0 justify-between w-full">
         <div class="p-4 bg-gray-300 rounded md:w-1/3">
