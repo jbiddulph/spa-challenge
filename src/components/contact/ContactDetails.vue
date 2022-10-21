@@ -6,6 +6,9 @@
       v-show="!isLoading"
       class="container max-w-6xl mx-auto my-20"
     >
+      <router-link to="/contacts" class="bg-gray-900 rounded p-2 text-white"
+        >Back to contacts</router-link
+      >
       <h2 class="text-2xl mb-10 text-center">
         {{ fullName }} of
         <router-link :to="`/company/${company.id}`" class="underline">{{
@@ -60,7 +63,12 @@
               :key="contactsList.id"
               class="list-decimal ml-8 mb-2 border-b-2"
             >
-              {{ contactsList.first_name }}
+              <router-link
+                :to="`/contact/${contactsList.id}`"
+                class="underline"
+              >
+                {{ contactsList.first_name }} &nbsp;{{ contactsList.last_name }}
+              </router-link>
             </li>
           </ul>
         </div>
