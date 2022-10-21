@@ -1,4 +1,3 @@
-import signupValidations from "@/services/signupValidations";
 import {
   SIGNUP_ACTION,
   LOGIN_ACTION,
@@ -74,10 +73,7 @@ export default {
       response = await axios.post(payload.url, data);
       localStorage.setItem("token", response.data.authorisation.token);
     } catch (error) {
-      let errorMsg = signupValidations.getErrorMessageFromCode(
-        error.response.data.message
-      );
-      throw errorMsg;
+      throw error;
     }
     console.log("Response: ", response.data);
     context.dispatch(USER_ACTION, response.data.user);
