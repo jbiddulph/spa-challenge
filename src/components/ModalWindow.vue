@@ -31,11 +31,6 @@ export default {
   components: {
     AppButton,
   },
-  methods: {
-    closeModal() {
-      alert("Modal closed");
-    },
-  },
 };
 </script>
 

@@ -2,12 +2,13 @@
   <div class="bg-gray-200 h-100 p-4 rounded m-4">
     <div class="my-2">
       <span class="font-bold"
-        >({{ todoDetails.id }})&nbsp;{{ todoDetails.title }}</span
+        >({{ artworkDetails.id }})&nbsp;{{ artworkDetails.title }}</span
       ><br />
-      {{ todoDetails.description }}<br />
+      {{ artworkDetails.artist_notes }}<br />
+      <img :src="artworkDetails.file" />
     </div>
     <div class="flex flex-row items-center justify-between">
-      <router-link :to="`/contact/${todoDetails.id}`">
+      <router-link :to="`/artwork/${artworkDetails.id}`">
         <AppButton
           type="delete"
           :processing="isLoading"
@@ -18,9 +19,9 @@
       </router-link>
     </div>
     <ModalWindow :open="isOpen" @close="closeModal()">
-      <AddEditForm
+      <AddGalleryForm
         :editing="isEdit"
-        :todoDetails="todoDetails"
+        :artworkDetails="artworkDetails"
         @close="closeModal()"
       />
     </ModalWindow>
@@ -31,21 +32,21 @@
 import { ref } from "vue";
 import AppButton from "@/components/AppButton.vue";
 import ModalWindow from "@/components/ModalWindow.vue";
-import AddEditForm from "@/components/contact/AddEditForm.vue";
+import AddGalleryForm from "@/components/gallery/AddGalleryForm.vue";
 export default {
   components: {
     AppButton,
     ModalWindow,
-    AddEditForm,
+    AddGalleryForm,
   },
-  name: "ContactDetails",
+  name: "ArtworkDetails",
   props: {
-    todoDetails: {},
+    artworkDetails: {},
   },
   data() {
     return {
       title: "",
-      description: "",
+      artist_notes: "",
       isOpen: ref(false),
       isEdit: false,
     };

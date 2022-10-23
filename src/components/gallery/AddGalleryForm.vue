@@ -1,40 +1,34 @@
 <template>
-  <div>
-    <AlertBox
-      :alertShow="alertShow"
-      :alertClasses="alertClasses"
-      :alertText="alertText"
-    />
-    <form @submit.prevent="onAddTodo">
+  <div class="flex flex-col w-100">
+    <form @submit.prevent="onAddTodo" class="flex flex-col">
       <BaseInput
         v-model="todo.title"
         label="Title"
         type="text"
-        class="border-2 p-2 rounded"
+        class="border-2 p-2 rounded mb-4"
       />
       <BaseInput
         v-model="todo.description"
         label="Description"
         type="text"
-        class="border-2 p-2 rounded"
+        class="border-2 p-2 rounded mb-4"
       />
       <AppButton type="submit" class="rounded border-2 border-gray p-2">
         <div>Add Todo</div>
       </AppButton>
     </form>
-    {{ todo }}
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import AlertBox from "@/components/AlertBox.vue";
+// import AlertBox from "@/components/AlertBox.vue";
 import AppButton from "@/components/AppButton.vue";
 import BaseInput from "@/components/BaseInput.vue";
 export default {
-  name: "AddTodoForm",
+  name: "AddGalleryForm",
   components: {
-    AlertBox,
+    // AlertBox,
     AppButton,
     BaseInput,
   },

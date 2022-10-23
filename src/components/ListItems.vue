@@ -18,6 +18,11 @@
         data-item="contact"
       />
       <Todo v-if="type == 'todo'" :todoDetails="item" data-item="todo" />
+      <Artwork
+        v-if="type == 'artwork'"
+        :artworkDetails="item"
+        data-item="artwork"
+      />
     </li>
   </ul>
 </template>
@@ -26,11 +31,13 @@
 import Company from "@/components/company/Company.vue";
 import Contact from "@/components/contact/Contact.vue";
 import Todo from "@/components/todo/Todo.vue";
+import Artwork from "@/components/gallery/Artwork.vue";
 export default {
   components: {
     Company,
     Contact,
     Todo,
+    Artwork,
   },
   props: {
     listItems: [],

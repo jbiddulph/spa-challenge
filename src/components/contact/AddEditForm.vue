@@ -175,7 +175,11 @@
       <ErrorMessage class="text-red-700 font-bold" name="post_code" />
     </div>
     <div class="my-4">
-      <AppButton type="submit" class="rounded border-2 border-gray p-2">
+      <AppButton
+        type="submit"
+        class="rounded border-2 border-gray p-2"
+        @click="$emit('close')"
+      >
         <div
           v-if="
             editing
@@ -730,12 +734,10 @@ export default {
       this.region_county = this.contactDetails.region_county;
       this.country_code = this.contactDetails.country_code;
       this.post_code = this.contactDetails.post_code;
-      console.log("Company_id: ", this.company_id);
     }
   },
   methods: {
     async getCompanies() {
-      console.log("getting companies..");
       try {
         let response = await axios.get("companies/all");
         this.hasLoaded = true;
@@ -791,22 +793,24 @@ export default {
       try {
         if (!this.editing) {
           axios.post("contact", this.contact).then(() => {
-            this.alertShow = true;
-            this.alertClasses =
-              "bg-green-300 rounded border-2 border-green-500 p-2 my-2";
-            this.alertText = "Success, your contact has been added!";
             this.clearFields();
-            this.$emit("close");
+            this.$swal({
+              title: `Successfully added`,
+              text: ` ${this.contact.first_name} ${this.contact.last_name}  has been added!`,
+              icon: "success",
+              buttons: true,
+              dangerMode: false,
+            });
           });
         } else {
-          console.log("CONTACT: ", this.contact);
           axios.put(`contact/${id}`, this.contact).then(() => {
-            this.alertShow = true;
-            this.alertClasses =
-              "bg-green-300 rounded border-2 border-green-500 p-2";
-            this.alertText = "Success, your contact has been updated!";
-            this.clearFields();
-            this.$emit("close");
+            this.$swal({
+              title: `Successfully updated`,
+              text: ` ${this.contact.first_name} ${this.contact.last_name}  has been updated!`,
+              icon: "info",
+              buttons: true,
+              dangerMode: false,
+            });
           });
         }
       } catch (error) {

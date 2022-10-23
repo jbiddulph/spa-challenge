@@ -5,7 +5,7 @@
       <router-link to="/companies" class="bg-gray-900 text-white rounded p-2"
         >Back to Company List</router-link
       >
-      <h2 v-show="!isLoading" class="text-2xl mb-10 text-center">
+      <h2 v-show="!isLoading" class="text-4xl mb-10 text-center">
         {{ companyDetails.name }}
       </h2>
       {{ companyDetails }}

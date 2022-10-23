@@ -24,11 +24,12 @@
         >Edit&nbsp;&nbsp;<i class="fa-solid fa-pencil"></i
       ></AppButton>
     </div>
-    <ModalWindow :open="isOpen" @close="this.isOpen = !this.isOpen">
+    <ModalWindow :open="isOpen" @close="closeModal()">
       <AddEditForm
         :editing="isEdit"
         :contactDetails="contactDetails"
         :id="id"
+        @close="closeModal()"
       />
     </ModalWindow>
   </div>
@@ -68,6 +69,9 @@ export default {
     },
   },
   methods: {
+    closeModal() {
+      this.isOpen = !this.isOpen;
+    },
     editMode(id) {
       if (id) {
         this.id = id;

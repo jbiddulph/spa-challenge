@@ -3,7 +3,7 @@
     <div :class="{ 'is-loading': isLoading }">&nbsp;</div>
     <div v-if="!isLoading" class="container max-w-6xl mx-auto my-20">
       <div class="flex justify-between mx-8 md:mx-4 mb-4">
-        <h2 v-show="!isLoading" class="text-2xl text-center">Contacts</h2>
+        <h2 v-show="!isLoading" class="text-4xl text-center">Contacts</h2>
 
         <AppButton
           type="secondary"
@@ -26,8 +26,8 @@
           <span>Next&nbsp;&gt;</span>
         </template>
       </Pagination>
-      <ModalWindow :open="isOpen" @close="this.isOpen = !this.isOpen">
-        <AddEditForm />
+      <ModalWindow :open="isOpen" @close="closeModal()">
+        <AddEditForm @close="closeModal()" />
       </ModalWindow>
     </div>
   </div>
@@ -83,6 +83,9 @@ export default {
       } catch (error) {
         console.log("Error: ", error);
       }
+    },
+    closeModal() {
+      this.isOpen = !this.isOpen;
     },
   },
   mounted() {

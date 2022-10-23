@@ -3,7 +3,7 @@
   <div :class="{ 'is-loading': isLoading }">&nbsp;</div>
   <div v-if="!isLoading" class="container max-w-6xl mx-auto my-20">
     <div class="flex justify-between mx-8 md:mx-4 mb-4">
-      <h2 v-show="!isLoading" class="text-2xl text-center">Companies</h2>
+      <h2 v-show="!isLoading" class="text-4xl text-center">Companies</h2>
       <!-- <AppButton
         type="secondary"
         :processing="isLoading"
@@ -13,7 +13,7 @@
       </AppButton> -->
     </div>
     <ListItems :listItems="companies" type="company" />
-    <ModalWindow :open="isOpen" @close="this.isOpen = !this.isOpen">
+    <ModalWindow :open="isOpen" @close="closeModal()">
       Add / Edit Company Form
     </ModalWindow>
   </div>
@@ -40,6 +40,11 @@ export default {
       companies: [],
       isOpen: ref(false),
     };
+  },
+  methods: {
+    closeModal() {
+      this.isOpen = !this.isOpen;
+    },
   },
 };
 </script>
