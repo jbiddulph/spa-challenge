@@ -3,7 +3,7 @@
   <ul class="flex flex-wrap justify-between">
     <li
       class="max-w-160 w-full mx-4 md:mx-0 md:w-1/3"
-      v-for="item in listItems"
+      v-for="(item, index) in list"
       :key="item.id"
       data-item="item"
     >
@@ -17,7 +17,12 @@
         :contactDetails="item"
         data-item="contact"
       />
-      <Todo v-if="type == 'todo'" :todoDetails="item" data-item="todo" />
+      <Todo
+        v-if="type == 'todo'"
+        :todoDetails="item"
+        data-item="todo"
+        @remove="removeTodo(index)"
+      />
       <Artwork
         v-if="type == 'artwork'"
         :artworkDetails="item"
@@ -43,6 +48,19 @@ export default {
     listItems: [],
     type: {
       type: String,
+    },
+  },
+  data() {
+    return {
+      list: [],
+    };
+  },
+  mounted() {
+    this.list = this.listItems;
+  },
+  methods: {
+    removeTodo(index) {
+      this.list.splice(index, 1);
     },
   },
 };

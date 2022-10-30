@@ -1,8 +1,8 @@
 <template>
   <div class="home">
     <div class="container mx-auto max-w-1100 my-16 p-4 md:p-0">
-      <div v-if="isAuthenticated" class="flex flex-row">
-        <div class="w-2/3 pr-8">
+      <div v-if="isAuthenticated" class="flex flex-col md:flex-row">
+        <div class="w-full md:w-2/3 pr-8">
           <h3 class="mb-8 text-4xl">Welcome {{ user.name }}</h3>
           <p class="mb-4">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
@@ -50,7 +50,7 @@
             consequat rutrum diam.
           </p>
         </div>
-        <div class="w-1/3 mt-12">
+        <div class="w-full md:w-1/3 mt-12">
           <svg
             id="be452e83-5912-4855-80f8-a79ecab91838"
             data-name="Layer 1"

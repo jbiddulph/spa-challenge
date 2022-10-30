@@ -195,6 +195,7 @@
 </template>
 
 <script>
+import Swal from "sweetalert2";
 import axios from "axios";
 import AppButton from "@/components/AppButton.vue";
 import AlertBox from "@/components/AlertBox.vue";
@@ -794,7 +795,7 @@ export default {
         if (!this.editing) {
           axios.post("contact", this.contact).then(() => {
             this.clearFields();
-            this.$swal({
+            Swal.fire({
               title: `Successfully added`,
               text: ` ${this.contact.first_name} ${this.contact.last_name}  has been added!`,
               icon: "success",
@@ -804,7 +805,7 @@ export default {
           });
         } else {
           axios.put(`contact/${id}`, this.contact).then(() => {
-            this.$swal({
+            Swal.fire({
               title: `Successfully updated`,
               text: ` ${this.contact.first_name} ${this.contact.last_name}  has been updated!`,
               icon: "info",

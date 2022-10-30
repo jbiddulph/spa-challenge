@@ -12,7 +12,7 @@
     </div>
     <span
       @click="menuOpen"
-      class="absolute md:hidden right-6 top-2 cursor-pointer text-3xl"
+      class="absolute md:hidden right-6 top-4 cursor-pointer text-3xl"
     >
       <i :class="[open ? 'fa-solid fa-times' : 'fa-solid fa-bars']"></i>
     </span>

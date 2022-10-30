@@ -101,7 +101,6 @@ ul.pagination {
   justify-content: center;
   align-items: center;
   margin-top: 60px !important;
-  width: 740px;
   margin: 0px auto;
 }
 li.pagination-page-nav.active {

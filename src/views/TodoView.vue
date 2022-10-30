@@ -12,7 +12,11 @@
           Add New Todo
         </AppButton>
       </div>
-      <ListItems :listItems="todos.data" type="todo" />
+      <ListItems
+        :listItems="todos.data"
+        type="todo"
+        @remove="todos.splice(z, 1)"
+      />
       <Pagination
         class="w-80 md:w-auto"
         :data="todos"
@@ -26,7 +30,7 @@
         </template>
       </Pagination>
       <ModalWindow :open="isOpen" @close="closeModal()">
-        <AddTodoForm />
+        <AddTodoForm @close="closeModal()" />
       </ModalWindow>
     </div>
   </div>

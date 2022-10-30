@@ -1,42 +1,30 @@
 <template>
   <div class="bg-gray-200 h-100 p-4 rounded m-4">
     <div class="my-2">
-      <span class="font-bold"
-        >({{ todoDetails.id }})&nbsp;{{ todoDetails.title }}</span
+      <span class="font-bold">({{ todo.id }})&nbsp;{{ todo.title }}</span
       ><br />
-      {{ todoDetails.description }}<br />
+      {{ todo.description }}<br />
     </div>
     <div class="flex flex-row items-center justify-between">
-      <router-link :to="`/contact/${todoDetails.id}`">
-        <AppButton
-          type="delete"
-          :processing="isLoading"
-          @click.prevent="editMode"
-          data-element="button"
-          >Delete&nbsp;&nbsp;<i class="fa-solid fa-trash"></i
-        ></AppButton>
-      </router-link>
+      <AppButton
+        type="delete"
+        :processing="isLoading"
+        @click.prevent="deleteTodo(todo.id)"
+        data-element="button"
+        >Delete&nbsp;&nbsp;<i class="fa-solid fa-trash"></i
+      ></AppButton>
     </div>
-    <ModalWindow :open="isOpen" @close="closeModal()">
-      <AddEditForm
-        :editing="isEdit"
-        :todoDetails="todoDetails"
-        @close="closeModal()"
-      />
-    </ModalWindow>
   </div>
 </template>
 
 <script>
+import Swal from "sweetalert2";
 import { ref } from "vue";
+import axios from "axios";
 import AppButton from "@/components/AppButton.vue";
-import ModalWindow from "@/components/ModalWindow.vue";
-import AddEditForm from "@/components/contact/AddEditForm.vue";
 export default {
   components: {
     AppButton,
-    ModalWindow,
-    AddEditForm,
   },
   name: "ContactDetails",
   props: {
@@ -48,12 +36,28 @@ export default {
       description: "",
       isOpen: ref(false),
       isEdit: false,
+      todo: this.todoDetails,
     };
   },
   methods: {
-    editMode() {
-      this.isOpen = true;
-      this.isEdit = true;
+    deleteTodo(id) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire("Deleted!", "Your file has been deleted.", "success");
+          axios.delete(`todo/${id}`);
+          this.$emit("remove");
+        }
+      });
+      // this.isOpen = true;
+      // this.isEdit = true;
     },
     closeModal() {
       this.isOpen = !this.isOpen;
