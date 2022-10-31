@@ -23,6 +23,13 @@
         @click.prevent="editMode(contactDetails.id)"
         >Edit&nbsp;&nbsp;<i class="fa-solid fa-pencil"></i
       ></AppButton>
+      <AppButton
+        type="delete"
+        :processing="isLoading"
+        @click.prevent="deleteContact(contactDetails.id)"
+        data-element="button"
+        >Delete&nbsp;&nbsp;<i class="fa-solid fa-trash"></i
+      ></AppButton>
     </div>
     <ModalWindow :open="isOpen" @close="closeModal()">
       <AddEditForm
@@ -36,7 +43,9 @@
 </template>
 
 <script>
+import Swal from "sweetalert2";
 import { ref } from "vue";
+import axios from "axios";
 import AppButton from "@/components/AppButton.vue";
 import ModalWindow from "@/components/ModalWindow.vue";
 import AddEditForm from "@/components/contact/AddEditForm.vue";
@@ -69,6 +78,23 @@ export default {
     },
   },
   methods: {
+    deleteContact(id) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire("Deleted!", "Your contact has been deleted.", "success");
+          axios.delete(`contact/${id}`);
+          this.$emit("remove");
+        }
+      });
+    },
     closeModal() {
       this.isOpen = !this.isOpen;
     },

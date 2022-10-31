@@ -11,17 +11,20 @@
         v-if="type == 'company'"
         :companyDetails="item"
         data-item="company"
+        @remove="remove(index)"
       />
       <Contact
         v-if="type == 'contact'"
         :contactDetails="item"
         data-item="contact"
+        @remove="remove(index)"
       />
       <Todo
         v-if="type == 'todo'"
         :todoDetails="item"
         data-item="todo"
-        @remove="removeTodo(index)"
+        @remove="remove(index)"
+        @added="addTodo(index)"
       />
       <Artwork
         v-if="type == 'artwork'"
@@ -59,9 +62,10 @@ export default {
     this.list = this.listItems;
   },
   methods: {
-    removeTodo(index) {
+    remove(index) {
       this.list.splice(index, 1);
     },
+    addTodo(index) {},
   },
 };
 </script>

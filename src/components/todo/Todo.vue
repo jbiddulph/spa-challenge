@@ -1,8 +1,9 @@
 <template>
-  <div class="bg-gray-200 h-100 p-4 rounded m-4">
+  <div v-if="todo.title.length >= 0" class="bg-gray-200 h-100 p-4 rounded m-4">
     <div class="my-2">
       <span class="font-bold">({{ todo.id }})&nbsp;{{ todo.title }}</span
       ><br />
+      {{ todo }}
       {{ todo.description }}<br />
     </div>
     <div class="flex flex-row items-center justify-between">
@@ -14,6 +15,9 @@
         >Delete&nbsp;&nbsp;<i class="fa-solid fa-trash"></i
       ></AppButton>
     </div>
+  </div>
+  <div v-else>
+    <p>There are no todos!</p>
   </div>
 </template>
 
@@ -56,8 +60,6 @@ export default {
           this.$emit("remove");
         }
       });
-      // this.isOpen = true;
-      // this.isEdit = true;
     },
     closeModal() {
       this.isOpen = !this.isOpen;

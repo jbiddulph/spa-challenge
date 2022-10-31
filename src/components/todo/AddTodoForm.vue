@@ -13,7 +13,11 @@
         type="text"
         class="border-2 p-2 rounded mb-4"
       />
-      <AppButton type="submit" class="rounded border-2 border-gray p-2">
+      <AppButton
+        type="submit"
+        class="rounded border-2 border-gray p-2"
+        @click="$emit('close')"
+      >
         <div>Add Todo</div>
       </AppButton>
     </form>
@@ -21,14 +25,13 @@
 </template>
 
 <script>
+import Swal from "sweetalert2";
 import axios from "axios";
-// import AlertBox from "@/components/AlertBox.vue";
 import AppButton from "@/components/AppButton.vue";
 import BaseInput from "@/components/BaseInput.vue";
 export default {
   name: "AddTodoForm",
   components: {
-    // AlertBox,
     AppButton,
     BaseInput,
   },
@@ -44,20 +47,29 @@ export default {
     };
   },
   methods: {
+    clearFields() {
+      this.title = "";
+      this.description = "";
+    },
     onAddTodo() {
       this.todo = {
         title: this.todo.title,
         description: this.todo.description,
       };
       try {
-        console.log("TODO: ", this.todo);
         axios.post("todo", this.todo).then(() => {
-          this.alertShow = true;
-          this.alertClasses =
-            "bg-green-300 rounded border-2 border-green-500 p-2 my-2";
-          this.alertText = "Success, your todo has been added!";
           this.clearFields();
-          this.$emit("close");
+          Swal.fire({
+            title: `Successfully added`,
+            text: ` ${this.todo.title} has been added!`,
+            icon: "success",
+            buttons: true,
+            dangerMode: false,
+          });
+          this.clearFields();
+          // this.$emit("close");
+          // this.$emit("added");
+          Event.$emit("addTodo", payload);
         });
         console.log(response);
       } catch (error) {

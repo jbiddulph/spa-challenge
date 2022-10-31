@@ -1,79 +1,23 @@
 <template>
   <h2
     v-if="
-      editing ? (headerText = 'Edit Contact') : (headerText = 'Add Contact')
+      editing ? (headerText = 'Edit Company') : (headerText = 'Add Company')
     "
     class="text-xl"
   ></h2>
-  <AlertBox
-    :alertShow="alertShow"
-    :alertClasses="alertClasses"
-    :alertText="alertText"
-  />
   <Form @submit.prevent="onSubmit(id)">
-    <div v-if="!editing" class="my-4">
-      <AppButton type="secondary" @click.prevent="getCompanies()">
-        Load Companies
-      </AppButton>
-    </div>
-    <div v-if="hasLoaded" class="my-4">
-      <label for="Company"
-        >Company&nbsp;<span class="text-red-700">*</span></label
-      >
-      <select
-        v-model="company_id"
-        class="w-full rounded border-2 border-gray p-2"
-        :rules="isRequired"
-      >
-        <option value="">Please select a company</option>
-        <option
-          v-for="company in companies"
-          :key="company.id"
-          :value="company.id"
-        >
-          {{ company.name }}
-        </option>
-      </select>
-    </div>
-    <div v-if="editing" class="my-4">
-      <input name="company_id" type="hidden" v-model="company_id" />
-      <h3>
-        Company:
-        <router-link
-          :to="`/company/${contactDetails.company.id}`"
-          class="underline"
-          >{{ contactDetails.company.name }}</router-link
-        >
-      </h3>
-    </div>
     <div class="my-4">
-      <label for="First Name"
-        >First Name&nbsp;<span class="text-red-700">*</span></label
-      >
+      <label for="Name">Name&nbsp;<span class="text-red-700">*</span></label>
       <Field
-        name="first_name"
+        name="name"
         type="text"
-        placeholder="First Name"
-        v-model="first_name"
-        :value="editing ? contactDetails.first_name : first_name"
+        placeholder="Name"
+        v-model="name"
+        :value="editing ? companyDetails.name : name"
         class="w-full rounded border-2 border-gray p-2"
         :rules="isRequired"
       />
       <ErrorMessage class="text-red-700 font-bold" name="first_name" />
-    </div>
-    <div class="my-4">
-      <label for="Last Name"
-        >Last Name&nbsp;<span class="text-red-700">*</span></label
-      >
-      <Field
-        name="last_name"
-        type="text"
-        placeholder="Last Name"
-        v-model="last_name"
-        class="w-full rounded border-2 border-gray p-2"
-        :rules="isRequired"
-      />
-      <ErrorMessage class="text-red-700 font-bold" name="last_name" />
     </div>
     <div class="my-4">
       <label for="Email">Email&nbsp;<span class="text-red-700">*</span></label>
@@ -183,8 +127,8 @@
         <div
           v-if="
             editing
-              ? (buttonText = 'Edit Contact')
-              : (buttonText = 'Add Contact')
+              ? (buttonText = 'Edit Company')
+              : (buttonText = 'Add Company')
           "
         >
           {{ buttonText }}
@@ -216,7 +160,7 @@ export default {
       type: Boolean,
       default: false,
     },
-    contactDetails: {
+    companyDetails: {
       type: Object,
       required: true,
     },
@@ -227,9 +171,7 @@ export default {
       headerText: "",
       buttonText: "",
       contact_id: "",
-      company_id: "",
-      first_name: "",
-      last_name: "",
+      name: "",
       email: "",
       phone: "",
       address: "",
@@ -237,11 +179,6 @@ export default {
       region_county: "",
       country_code: "",
       post_code: "",
-      errors: [],
-      contact: {},
-      alertShow: false,
-      alertClasses: "",
-      alertText: "",
       countryListAllIsoData: [
         { code: "AF", code3: "AFG", name: "Afghanistan", number: "004" },
         { code: "AL", code3: "ALB", name: "Albania", number: "008" },
@@ -718,34 +655,23 @@ export default {
         { code: "ZW", code3: "ZWE", name: "Zimbabwe", number: "716" },
         { code: "AX", code3: "ALA", name: "Åland Islands", number: "248" },
       ],
-      companies: [],
+      errors: [],
+      company: {},
     };
   },
   created() {
-    if (this.contactDetails) {
-      this.company_id = this.contactDetails.company.id;
-      this.first_name = this.contactDetails.first_name;
-      this.last_name = this.contactDetails.last_name;
-      this.email = this.contactDetails.email;
-      this.phone = this.contactDetails.phone;
-      this.address = this.contactDetails.address;
-      this.town_city = this.contactDetails.town_city;
-      this.region_county = this.contactDetails.region_county;
-      this.country_code = this.contactDetails.country_code;
-      this.post_code = this.contactDetails.post_code;
+    if (this.companyDetails) {
+      this.name = this.companyDetails.name;
+      this.email = this.companyDetails.email;
+      this.phone = this.companyDetails.phone;
+      this.address = this.companyDetails.address;
+      this.town_city = this.companyDetails.town_city;
+      this.region_county = this.companyDetails.region_county;
+      this.country_code = this.companyDetails.country_code;
+      this.post_code = this.companyDetails.post_code;
     }
   },
   methods: {
-    async getCompanies() {
-      try {
-        let response = await axios.get("companies/all");
-        this.hasLoaded = true;
-        this.companies = response.data.companies;
-        console.log("Response: " + response);
-      } catch (error) {
-        console.log("Error: ", error);
-      }
-    },
     isRequired(value) {
       if (value && value.trim()) {
         return true;
@@ -753,8 +679,7 @@ export default {
       return "This field is required";
     },
     clearFields() {
-      this.first_name = "";
-      this.last_name = "";
+      this.name = "";
       this.email = "";
       this.phone = "";
       this.address = "";
@@ -777,10 +702,8 @@ export default {
       return true;
     },
     onSubmit(id) {
-      this.contact = {
-        company_id: this.company_id,
-        first_name: this.first_name,
-        last_name: this.last_name,
+      this.company = {
+        name: this.name,
         email: this.email,
         phone: this.phone,
         address: this.address,
@@ -791,21 +714,21 @@ export default {
       };
       try {
         if (!this.editing) {
-          axios.post("contact", this.contact).then(() => {
+          axios.post("company", this.company).then(() => {
             this.clearFields();
             Swal.fire({
               title: `Successfully added`,
-              text: ` ${this.contact.first_name} ${this.contact.last_name}  has been added!`,
+              text: ` ${this.company.name} has been added!`,
               icon: "success",
               buttons: true,
               dangerMode: false,
             });
           });
         } else {
-          axios.put(`contact/${id}`, this.contact).then(() => {
+          axios.put(`company/${id}`, this.company).then(() => {
             Swal.fire({
               title: `Successfully updated`,
-              text: ` ${this.contact.first_name} ${this.contact.last_name}  has been updated!`,
+              text: ` ${this.company.name} has been updated!`,
               icon: "info",
               buttons: true,
               dangerMode: false,
