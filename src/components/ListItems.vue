@@ -29,6 +29,7 @@
         v-if="type == 'artwork'"
         :artworkDetails="item"
         data-item="artwork"
+        @remove="remove(index)"
       />
     </li>
   </ul>

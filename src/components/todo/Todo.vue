@@ -1,10 +1,15 @@
 <template>
   <div class="bg-gray-200 h-100 p-4 rounded m-4">
-    <div class="my-2">
-      <span class="font-bold" v-if="todo.id">({{ todo.id }})</span>
-      <span v-else class="bg-green-500 rounded p-2 text-white text-sm"
-        >Recently Added</span
-      >&nbsp;{{ todo.title }}<br />
+    <div class="flex flex-col">
+      <div class="flex flex-row justify-between">
+        <span>{{ todo.title }}</span>
+        <span class="font-bold" v-if="todo.id">({{ todo.id }})</span>
+        <span
+          v-else
+          class="bg-green-500 rounded px-2 text-white text-xs font-bold items-center flex"
+          >New</span
+        >
+      </div>
       {{ todo.description }}<br />
     </div>
     <div class="flex flex-row items-center justify-between">
@@ -53,7 +58,7 @@ export default {
         confirmButtonText: "Yes, delete it!",
       }).then((result) => {
         if (result.isConfirmed) {
-          Swal.fire("Deleted!", "Your file has been deleted.", "success");
+          Swal.fire("Deleted!", "Your todo has been deleted.", "success");
           axios.delete(`todo/${id}`);
           this.$emit("remove");
         }

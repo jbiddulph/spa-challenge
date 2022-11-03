@@ -12,7 +12,19 @@
         Add New Company
       </AppButton> -->
     </div>
-    <ListItems :listItems="companies" type="company" />
+    <ListItems :listItems="companies.data" type="company" />
+    <Pagination
+      class="w-80 md:w-auto"
+      :data="companies"
+      @pagination-change-page="getPaginatedCompanies"
+    >
+      <template #prev-nav>
+        <span>&#x2190;&nbsp;</span>
+      </template>
+      <template #next-nav>
+        <span>&nbsp;&#x2192;</span>
+      </template>
+    </Pagination>
     <ModalWindow :open="isOpen" @close="closeModal()">
       Add / Edit Company Form
     </ModalWindow>
@@ -25,6 +37,7 @@ import { ref } from "vue";
 import ApiCalls from "@/mixins/ApiCalls";
 // import AppButton from "@/components/AppButton.vue";
 import ListItems from "@/components/ListItems.vue";
+import LaravelVuePagination from "laravel-vue-pagination";
 import ModalWindow from "@/components/ModalWindow.vue";
 export default {
   mixins: [ApiCalls],
@@ -32,6 +45,7 @@ export default {
   components: {
     // AppButton,
     ListItems,
+    Pagination: LaravelVuePagination,
     ModalWindow,
   },
   data() {
@@ -39,6 +53,10 @@ export default {
       isLoading: false,
       companies: [],
       isOpen: ref(false),
+      links: [],
+      pagination: {
+        current_page: 1,
+      },
     };
   },
   methods: {

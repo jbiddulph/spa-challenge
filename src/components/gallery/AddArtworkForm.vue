@@ -13,8 +13,8 @@
         type="text"
         class="border-2 p-2 rounded mb-4"
       />
-      <AppButton type="submit" class="rounded border-2 border-gray p-2">
-        <div>Add Todo</div>
+      <AppButton type="submit" class="rounded p-2">
+        <div>Add Artwork</div>
       </AppButton>
     </form>
   </div>

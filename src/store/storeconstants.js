@@ -1,3 +1,4 @@
+// Auth
 export const SIGNUP_ACTION = "[actions] signup user";
 export const LOGIN_ACTION = "[actions] login user";
 export const LOGOUT_ACTION = "[actions] logout user";
@@ -12,3 +13,9 @@ export const SET_USER_MUTATION = "[mutations] set user mutation";
 export const GET_USER_TOKEN_GETTER = "[getters] auth user token";
 export const IS_USER_AUTHENTICATED_GETTER = "[getters] is user authenticated";
 export const USER_GETTER = "[getters] user";
+// Todo
+export const TODO_ACTION = "[actions] action todo";
+export const TODO_POST = "[actions] post todo";
+export const TODOS_GETTER = "[getters] todos";
+export const TODO_SET_ACTION = "[actions] set action todo";
+export const SET_TODO_MUTATION = "[mutations] set todo mutation";

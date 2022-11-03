@@ -8,36 +8,25 @@
       <img :src="artworkDetails.file" />
     </div>
     <div class="flex flex-row items-center justify-between">
-      <router-link :to="`/artwork/${artworkDetails.id}`">
-        <AppButton
-          type="delete"
-          :processing="isLoading"
-          @click.prevent="editMode"
-          data-element="button"
-          >Delete&nbsp;&nbsp;<i class="fa-solid fa-trash"></i
-        ></AppButton>
-      </router-link>
+      <AppButton
+        type="delete"
+        :processing="isLoading"
+        @click.prevent="deleteArtwork(artworkDetails.id)"
+        data-element="button"
+        >Delete&nbsp;&nbsp;<i class="fa-solid fa-trash"></i
+      ></AppButton>
     </div>
-    <ModalWindow :open="isOpen" @close="closeModal()">
-      <AddGalleryForm
-        :editing="isEdit"
-        :artworkDetails="artworkDetails"
-        @close="closeModal()"
-      />
-    </ModalWindow>
   </div>
 </template>
 
 <script>
+import Swal from "sweetalert2";
 import { ref } from "vue";
+import axios from "axios";
 import AppButton from "@/components/AppButton.vue";
-import ModalWindow from "@/components/ModalWindow.vue";
-import AddGalleryForm from "@/components/gallery/AddGalleryForm.vue";
 export default {
   components: {
     AppButton,
-    ModalWindow,
-    AddGalleryForm,
   },
   name: "ArtworkDetails",
   props: {
@@ -52,9 +41,22 @@ export default {
     };
   },
   methods: {
-    editMode() {
-      this.isOpen = true;
-      this.isEdit = true;
+    deleteArtwork(id) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire("Deleted!", "Your artwork has been deleted.", "success");
+          axios.delete(`artwork/${id}`);
+          this.$emit("remove");
+        }
+      });
     },
     closeModal() {
       this.isOpen = !this.isOpen;

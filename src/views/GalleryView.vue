@@ -19,14 +19,14 @@
         @pagination-change-page="getPaginatedArtwork"
       >
         <template #prev-nav>
-          <span>&lt;&nbsp;Previous</span>
+          <span>&#x2190;&nbsp;</span>
         </template>
         <template #next-nav>
-          <span>Next&nbsp;&gt;</span>
+          <span>&nbsp;&#x2192;</span>
         </template>
       </Pagination>
       <ModalWindow :open="isOpen" @close="closeModal()">
-        <AddGalleryForm />
+        <AddArtworkForm />
       </ModalWindow>
     </div>
   </div>
@@ -39,14 +39,14 @@ import AppButton from "@/components/AppButton.vue";
 import ListItems from "@/components/ListItems.vue";
 import LaravelVuePagination from "laravel-vue-pagination";
 import ModalWindow from "@/components/ModalWindow.vue";
-import AddGalleryForm from "@/components/gallery/AddGalleryForm.vue";
+import AddArtworkForm from "@/components/gallery/AddArtworkForm.vue";
 import { mapGetters } from "vuex";
 import { GET_USER_TOKEN_GETTER } from "@/store/storeconstants";
 export default {
   name: "GalleryView",
   components: {
     AppButton,
-    AddGalleryForm,
+    AddArtworkForm,
     ListItems,
     Pagination: LaravelVuePagination,
     ModalWindow,

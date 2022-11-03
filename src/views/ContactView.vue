@@ -20,10 +20,10 @@
         @pagination-change-page="getPaginatedContacts"
       >
         <template #prev-nav>
-          <span>&lt;&nbsp;Previous</span>
+          <span>&#x2190;&nbsp;</span>
         </template>
         <template #next-nav>
-          <span>Next&nbsp;&gt;</span>
+          <span>&nbsp;&#x2192;</span>
         </template>
       </Pagination>
       <ModalWindow :open="isOpen" @close="closeModal()">
@@ -78,7 +78,6 @@ export default {
         );
         this.contacts = response.data;
         this.links = response.data.links;
-        this.pagination = response.data.links;
         this.isLoading = false;
       } catch (error) {
         console.log("Error: ", error);
@@ -96,29 +95,3 @@ export default {
   },
 };
 </script>
-
-<style>
-ul.pagination {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin-top: 60px !important;
-  margin: 0px auto;
-}
-li.pagination-page-nav.active {
-  background-color: #047b04;
-  border: 2px solid #047b04;
-  color: #ffffff;
-}
-li.pagination-page-nav {
-  padding: 4px;
-  margin: 0 4px;
-  border: 2px solid #ccc;
-  border-radius: 5px;
-  font-size: 11px;
-}
-li.pagination-page-nav a.page-link {
-  padding: 6px;
-}
-</style>

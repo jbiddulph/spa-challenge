@@ -11,7 +11,9 @@
             <i class="fa-solid fa-times cursor-pointer"></i>
           </div>
           <slot />
-          <AppButton type="close" @click="$emit('close')">Close</AppButton>
+          <div class="flex justify-center">
+            <AppButton type="close" @click="$emit('close')">Close</AppButton>
+          </div>
         </div>
       </div>
     </div>
@@ -33,13 +35,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-*,
-::before,
-::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-</style>
