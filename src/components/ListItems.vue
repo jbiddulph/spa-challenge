@@ -24,7 +24,6 @@
         :todoDetails="item"
         data-item="todo"
         @remove="remove(index)"
-        @added="addTodo(index)"
       />
       <Artwork
         v-if="type == 'artwork'"
@@ -65,7 +64,6 @@ export default {
     remove(index) {
       this.list.splice(index, 1);
     },
-    addTodo(index) {},
   },
 };
 </script>

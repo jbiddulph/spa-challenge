@@ -27,7 +27,7 @@
         </template>
       </Pagination>
       <ModalWindow :open="isOpen" @close="closeModal()">
-        <AddEditForm @close="closeModal()" />
+        <AddEditForm @close="closeModal()" @added-contact="updateContactList" />
       </ModalWindow>
     </div>
   </div>
@@ -86,6 +86,9 @@ export default {
     },
     closeModal() {
       this.isOpen = !this.isOpen;
+    },
+    updateContactList(contact) {
+      this.contacts.data.push({ ...contact });
     },
   },
   mounted() {

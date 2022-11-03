@@ -1,9 +1,10 @@
 <template>
-  <div v-if="todo.title.length >= 0" class="bg-gray-200 h-100 p-4 rounded m-4">
+  <div class="bg-gray-200 h-100 p-4 rounded m-4">
     <div class="my-2">
-      <span class="font-bold">({{ todo.id }})&nbsp;{{ todo.title }}</span
-      ><br />
-      {{ todo }}
+      <span class="font-bold" v-if="todo.id">({{ todo.id }})</span>
+      <span v-else class="bg-green-500 rounded p-2 text-white text-sm"
+        >Recently Added</span
+      >&nbsp;{{ todo.title }}<br />
       {{ todo.description }}<br />
     </div>
     <div class="flex flex-row items-center justify-between">
@@ -15,9 +16,6 @@
         >Delete&nbsp;&nbsp;<i class="fa-solid fa-trash"></i
       ></AppButton>
     </div>
-  </div>
-  <div v-else>
-    <p>There are no todos!</p>
   </div>
 </template>
 

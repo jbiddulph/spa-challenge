@@ -48,8 +48,8 @@ export default {
   },
   methods: {
     clearFields() {
-      this.title = "";
-      this.description = "";
+      this.todo.title = "";
+      this.todo.description = "";
     },
     onAddTodo() {
       this.todo = {
@@ -58,20 +58,14 @@ export default {
       };
       try {
         axios.post("todo", this.todo).then(() => {
-          this.clearFields();
           Swal.fire({
             title: `Successfully added`,
             text: ` ${this.todo.title} has been added!`,
             icon: "success",
-            buttons: true,
-            dangerMode: false,
           });
+          this.$emit("addedTodo", this.todo);
           this.clearFields();
-          // this.$emit("close");
-          // this.$emit("added");
-          Event.$emit("addTodo", payload);
         });
-        console.log(response);
       } catch (error) {
         console.log("ERROR: ", error);
       }

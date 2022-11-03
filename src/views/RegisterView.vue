@@ -111,7 +111,6 @@
     </section>
   </div>
 </template>
-
 <script>
 import { mapActions, mapMutations } from "vuex";
 import {

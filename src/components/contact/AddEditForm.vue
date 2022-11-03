@@ -10,7 +10,7 @@
     :alertClasses="alertClasses"
     :alertText="alertText"
   />
-  <Form @submit.prevent="onSubmit(id)">
+  <Form @submit="onSubmit(id)">
     <div v-if="!editing" class="my-4">
       <AppButton type="secondary" @click.prevent="getCompanies()">
         Load Companies
@@ -721,20 +721,6 @@ export default {
       companies: [],
     };
   },
-  created() {
-    if (this.contactDetails) {
-      this.company_id = this.contactDetails.company.id;
-      this.first_name = this.contactDetails.first_name;
-      this.last_name = this.contactDetails.last_name;
-      this.email = this.contactDetails.email;
-      this.phone = this.contactDetails.phone;
-      this.address = this.contactDetails.address;
-      this.town_city = this.contactDetails.town_city;
-      this.region_county = this.contactDetails.region_county;
-      this.country_code = this.contactDetails.country_code;
-      this.post_code = this.contactDetails.post_code;
-    }
-  },
   methods: {
     async getCompanies() {
       try {
@@ -792,7 +778,6 @@ export default {
       try {
         if (!this.editing) {
           axios.post("contact", this.contact).then(() => {
-            this.clearFields();
             Swal.fire({
               title: `Successfully added`,
               text: ` ${this.contact.first_name} ${this.contact.last_name}  has been added!`,
@@ -800,6 +785,8 @@ export default {
               buttons: true,
               dangerMode: false,
             });
+            this.$emit("addedContact", this.contact);
+            this.clearFields();
           });
         } else {
           axios.put(`contact/${id}`, this.contact).then(() => {
