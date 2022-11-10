@@ -1,16 +1,58 @@
 <template>
   <div class="flex flex-col w-100">
-    <form @submit.prevent="onAddTodo" class="flex flex-col">
+    <form @submit.prevent="onAddArtwork" class="flex flex-col">
       <BaseInput
-        v-model="todo.title"
+        v-model="artwork.title"
         label="Title"
         type="text"
         class="border-2 p-2 rounded mb-4"
       />
       <BaseInput
-        v-model="todo.description"
-        label="Description"
+        v-model="artwork.size"
+        label="Size"
         type="text"
+        class="border-2 p-2 rounded mb-4"
+      />
+      <BaseInput
+        v-model="artwork.category"
+        label="Category"
+        type="text"
+        class="border-2 p-2 rounded mb-4"
+      />
+      <BaseInput
+        v-model="artwork.file"
+        label="File"
+        type="file"
+        class="border-2 p-2 rounded mb-4"
+      />
+      <BaseInput
+        v-model="artwork.artist_notes"
+        label="Artist notes"
+        type="text"
+        class="border-2 p-2 rounded mb-4"
+      />
+      <BaseInput
+        v-model="artwork.price"
+        label="Price"
+        type="text"
+        class="border-2 p-2 rounded mb-4"
+      />
+      <BaseInput
+        v-model="artwork.is_live"
+        label="Live"
+        type="checkbox"
+        class="border-2 p-2 rounded mb-4"
+      />
+      <BaseInput
+        v-model="artwork.is_featured"
+        label="Featured"
+        type="checkbox"
+        class="border-2 p-2 rounded mb-4"
+      />
+      <BaseInput
+        v-model="artwork.on_sale"
+        label="On Sale"
+        type="checkbox"
         class="border-2 p-2 rounded mb-4"
       />
       <AppButton type="submit" class="rounded p-2">
@@ -34,9 +76,17 @@ export default {
   },
   data() {
     return {
-      todo: {
+      artwork: {
+        contact_id: "",
         title: "",
-        description: "",
+        size: "",
+        category: "",
+        file: "",
+        artist_notes: "",
+        price: "",
+        is_live: "",
+        is_featured: "",
+        on_sale: "",
       },
       alertShow: false,
       alertClasses: "",
@@ -44,14 +94,22 @@ export default {
     };
   },
   methods: {
-    onAddTodo() {
-      this.todo = {
-        title: this.todo.title,
-        description: this.todo.description,
+    onAddArtwork() {
+      this.artwork = {
+        contact_id: this.artwork.contact_id,
+        title: this.artwork.title,
+        size: this.artwork.size,
+        category: this.artwork.category,
+        file: this.artwork.file,
+        artist_notes: this.artwork.artist_notes,
+        price: this.artwork.price,
+        is_live: this.artwork.is_live,
+        is_featured: this.artwork.is_featured,
+        on_sale: this.artwork.on_sale,
       };
       try {
-        console.log("TODO: ", this.todo);
-        axios.post("todo", this.todo).then(() => {
+        console.log("artwork: ", this.artwork);
+        axios.post("artwork", this.artwork).then(() => {
           this.alertShow = true;
           this.alertClasses =
             "bg-green-300 rounded border-2 border-green-500 p-2 my-2";

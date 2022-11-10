@@ -12,7 +12,7 @@
       </div>
       {{ todo.description }}<br />
     </div>
-    <div class="flex flex-row items-center justify-between">
+    <div class="flex flex-row items-center justify-between" v-if="todo.id">
       <AppButton
         type="delete"
         :processing="isLoading"

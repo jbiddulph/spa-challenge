@@ -5,7 +5,7 @@
     "
     class="text-xl"
   ></h2>
-  <Form @submit.prevent="onSubmit(id)">
+  <Form @submit="onSubmit(id)">
     <div class="my-4">
       <label for="Name">Name&nbsp;<span class="text-red-700">*</span></label>
       <Field

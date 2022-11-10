@@ -11,7 +11,7 @@
       <AppButton
         type="delete"
         :processing="isLoading"
-        @click.prevent="deleteArtwork(artworkDetails.id)"
+        @click.prevent="deleteArtwork(artworkDetails.id, artworkDetails.title)"
         data-element="button"
         >Delete&nbsp;&nbsp;<i class="fa-solid fa-trash"></i
       ></AppButton>
@@ -41,10 +41,10 @@ export default {
     };
   },
   methods: {
-    deleteArtwork(id) {
+    deleteArtwork(id, name) {
       Swal.fire({
         title: "Are you sure?",
-        text: "You won't be able to revert this!",
+        text: `About to delete ${name}  id: ${id}`,
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",

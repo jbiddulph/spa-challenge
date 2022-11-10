@@ -29,7 +29,10 @@
           </p>
         </div>
         <div class="p-4 mt-4 md:mt-0 rounded border-2 border-gray-200">
-          <ContactNote />
+          <ContactNote
+            @added-note="updateNoteList"
+            @remove-note="removeFromNotes"
+          />
         </div>
         <div
           v-if="contactDetails.notes && notes.length > 1"
@@ -43,6 +46,13 @@
               class="list-decimal ml-8 mb-2 border-b-2"
             >
               {{ notesList.note }}
+              <AppButton
+                type="delete"
+                :processing="isLoading"
+                @click.prevent="deleteNote(notesList.id)"
+                data-element="button"
+                >&nbsp;&nbsp;<i class="fa-solid fa-times text-red-500"></i
+              ></AppButton>
             </li>
           </ul>
         </div>
@@ -84,6 +94,7 @@
 </template>
 
 <script>
+import Swal from "sweetalert2";
 import axios from "axios";
 import ContactNote from "@/components/contact/ContactNote.vue";
 export default {
@@ -118,6 +129,30 @@ export default {
       } catch (error) {
         console.log("Error: ", error.message);
       }
+    },
+    updateNoteList(note) {
+      console.log("this note: ", note);
+      this.notes.push({ ...note });
+    },
+    removeFromNotes(index) {
+      this.notes.splice(index, 1);
+    },
+    deleteNote(id) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire("Deleted!", "Your contact has been deleted.", "success");
+          axios.delete(`note/${id}`);
+          this.$emit("removeNote");
+        }
+      });
     },
   },
   mounted() {

@@ -11,7 +11,7 @@ export default {
       email: userData?.email || "",
       token: userData?.token || "",
       userId: userData?.userId || "",
-      // autoLogout: false,
+      autoLogout: false,
     };
   },
   mutations,

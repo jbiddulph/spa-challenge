@@ -1,4 +1,5 @@
 <template>
+  <SideBar />
   <div class="login">
     <section class="h-screen">
       <div class="container px-6 py-12 h-full">
@@ -112,6 +113,7 @@
   </div>
 </template>
 <script>
+import SideBar from "@/components/Sidebar.vue";
 import { mapActions, mapMutations } from "vuex";
 import {
   LOADING_SPINNER_SHOW_MUTATION,
@@ -119,6 +121,9 @@ import {
 } from "@/store/storeconstants";
 export default {
   name: "RegisterView",
+  components: {
+    SideBar,
+  },
   data() {
     return {
       name: "",

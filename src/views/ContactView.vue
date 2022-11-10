@@ -1,4 +1,5 @@
 <template>
+  <SideBar />
   <div>
     <div :class="{ 'is-loading': isLoading }">&nbsp;</div>
     <div v-if="!isLoading" class="container max-w-6xl mx-auto my-20">
@@ -35,6 +36,7 @@
 
 <script>
 import { ref } from "vue";
+import SideBar from "@/components/Sidebar.vue";
 import AppButton from "@/components/AppButton.vue";
 import axios from "axios";
 import ListItems from "@/components/ListItems.vue";
@@ -46,6 +48,7 @@ import { GET_USER_TOKEN_GETTER } from "@/store/storeconstants";
 export default {
   name: "ContactPage",
   components: {
+    SideBar,
     AppButton,
     ListItems,
     Pagination: LaravelVuePagination,
