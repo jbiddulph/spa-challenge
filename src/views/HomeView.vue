@@ -3,7 +3,7 @@
   <div class="container mx-auto max-w-1100 my-16 p-4 md:p-0">
     <div v-if="isAuthenticated" class="flex flex-col md:flex-row">
       <div class="w-full md:w-2/3 pr-8">
-        <h3 class="mb-8 text-4xl">Welcome {{ user.name }}</h3>
+        <h3 v-if="user" class="mb-8 text-4xl">Welcome {{ user.name }}</h3>
         <p class="mb-4">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed elementum
           ante nec magna tristique, id bibendum lectus egestas. Maecenas

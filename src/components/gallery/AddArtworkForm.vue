@@ -63,14 +63,13 @@
 </template>
 
 <script>
+import Swal from "sweetalert2";
 import axios from "axios";
-// import AlertBox from "@/components/AlertBox.vue";
 import AppButton from "@/components/AppButton.vue";
 import BaseInput from "@/components/BaseInput.vue";
 export default {
   name: "AddGalleryForm",
   components: {
-    // AlertBox,
     AppButton,
     BaseInput,
   },
@@ -84,13 +83,10 @@ export default {
         file: "",
         artist_notes: "",
         price: "",
-        is_live: "",
-        is_featured: "",
-        on_sale: "",
+        is_live: null,
+        is_featured: null,
+        on_sale: null,
       },
-      alertShow: false,
-      alertClasses: "",
-      alertText: "",
     };
   },
   methods: {
@@ -109,15 +105,16 @@ export default {
       };
       try {
         console.log("artwork: ", this.artwork);
-        axios.post("artwork", this.artwork).then(() => {
-          this.alertShow = true;
-          this.alertClasses =
-            "bg-green-300 rounded border-2 border-green-500 p-2 my-2";
-          this.alertText = "Success, your todo has been added!";
-          this.clearFields();
-          this.$emit("close");
-        });
-        console.log(response);
+        // axios.post("artwork", this.artwork).then(() => {
+        //   Swal.fire({
+        //     title: `Successfully added`,
+        //     text: ` ${this.todo.title} has been added!`,
+        //     icon: "success",
+        //   });
+        //   this.clearFields();
+        //   this.$emit("close");
+        // });
+        // console.log(response);
       } catch (error) {
         console.log("ERROR: ", error);
       }

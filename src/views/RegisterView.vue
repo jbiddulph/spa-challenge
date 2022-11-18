@@ -60,6 +60,9 @@
                 >
                   {{ errors.email }}
                 </div>
+                <div v-if="emailTaken">
+                  <p class="text-green-500 text-xs">Contact Matched</p>
+                </div>
               </div>
 
               <!-- Password input -->
@@ -103,7 +106,7 @@
                 data-mdb-ripple="true"
                 data-mdb-ripple-color="light"
               >
-                {{ this.isloading ? "Signing up...." : "Sign Up" }}
+                Sign Up
               </button>
             </form>
           </div>
@@ -113,6 +116,7 @@
   </div>
 </template>
 <script>
+import axios from "axios";
 import SideBar from "@/components/Sidebar.vue";
 import { mapActions, mapMutations } from "vuex";
 import {
@@ -124,6 +128,14 @@ export default {
   components: {
     SideBar,
   },
+  watch: {
+    // whenever question changes, this function will run
+    email(newContact, oldContact) {
+      if (newContact.includes("@")) {
+        this.verifyEmail();
+      }
+    },
+  },
   data() {
     return {
       name: "",
@@ -132,6 +144,8 @@ export default {
       password_confirm: "",
       errors: [],
       error: "",
+      emailTaken: false,
+      emailAvailable: false,
     };
   },
   methods: {
@@ -141,11 +155,26 @@ export default {
     ...mapMutations({
       showLoading: LOADING_SPINNER_SHOW_MUTATION,
     }),
+    verifyEmail() {
+      axios.post("/verify/" + this.email).then((response) => {
+        console.log("Response: " + response.data);
+        if (response.data.contact.length) {
+          this.contact_id = response.data.contact[0].id;
+          this.emailTaken = true;
+          this.emailAvailable = false;
+        }
+        if (!response.data.contact.length) {
+          this.emailTaken = false;
+          this.emailAvailable = true;
+        }
+      });
+    },
     async register() {
       const data = {
         name: this.name,
         email: this.email,
         password: this.password,
+        contact_id: this.contact_id,
       };
       // Loading spinner true
       this.showLoading(true);
