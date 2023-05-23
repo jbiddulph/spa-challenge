@@ -8,6 +8,9 @@ module.exports = {
         "dark-green": "#044704",
         "modal-opacity": "rgba(0,0,0,0.4)",
       },
+      fontFamily: {
+        custom: ['PTSans-Regular', 'sans-serif'],
+      },
     },
   },
   plugins: [],

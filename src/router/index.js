@@ -12,6 +12,8 @@ import CompanyDetailsView from "../views/CompanyDetailsView.vue";
 // Contacts
 import ContactView from "../views/ContactView.vue";
 import ContactDetailsView from "../views/ContactDetailsView.vue";
+// Settings
+import SettingsView from "../views/SettingsView.vue";
 import store from "../store/index";
 import { IS_USER_AUTHENTICATED_GETTER } from "@/store/storeconstants";
 
@@ -57,6 +59,14 @@ const routes = [
     path: "/contacts",
     name: "contact",
     component: ContactView,
+    meta: {
+      auth: true,
+    },
+  },
+  {
+    path: "/settings",
+    name: "settings",
+    component: SettingsView,
     meta: {
       auth: true,
     },

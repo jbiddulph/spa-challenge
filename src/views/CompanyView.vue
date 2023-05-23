@@ -1,16 +1,15 @@
 <template>
-  <SideBar />
   <div :class="{ 'is-loading': isLoading }">&nbsp;</div>
-  <div v-if="!isLoading" class="container max-w-6xl mx-auto my-20">
-    <div class="flex justify-between mx-8 md:mx-4 mb-4">
+  <div v-if="!isLoading">
+    <div class="flex justify-between mx-8 md:mx-4 mb-4 mt-4">
       <h2 v-show="!isLoading" class="text-4xl text-center">Companies</h2>
-      <!-- <AppButton
+      <AppButton
         type="secondary"
         :processing="isLoading"
         @click.prevent="isOpen = true"
       >
         Add New Company
-      </AppButton> -->
+      </AppButton>
     </div>
     <ListItems :listItems="companies.data" type="company" />
     <Pagination
@@ -34,7 +33,6 @@
 
 <script>
 import { ref } from "vue";
-import SideBar from "@/components/Sidebar.vue";
 import ApiCalls from "@/mixins/ApiCalls";
 // import AppButton from "@/components/AppButton.vue";
 import ListItems from "@/components/ListItems.vue";
@@ -44,7 +42,6 @@ export default {
   mixins: [ApiCalls],
   name: "CompanyPage",
   components: {
-    SideBar,
     // AppButton,
     ListItems,
     Pagination: LaravelVuePagination,

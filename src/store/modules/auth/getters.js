@@ -2,6 +2,7 @@ import {
   IS_USER_AUTHENTICATED_GETTER,
   GET_USER_TOKEN_GETTER,
   USER_GETTER,
+  USER_ID_GETTER,
 } from "@/store/storeconstants";
 
 export default {
@@ -13,5 +14,8 @@ export default {
   },
   [USER_GETTER](state) {
     return state.user;
+  },
+  [USER_ID_GETTER](state) {
+    return state.user.id;
   },
 };

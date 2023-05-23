@@ -1,5 +1,6 @@
 <template>
-  <div class="flex-col flex min-h-screen">
+  <div class="flex min-h-screen mb-4">
+    <SideBar />
     <the-loader v-if="showLoading"></the-loader>
     <router-view />
   </div>
@@ -8,6 +9,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import SideBar from "@/components/Sidebar.vue";
 import axios from "axios";
 import Footer from "@/components/Footer.vue";
 import TheLoader from "@/components/TheLoader.vue";
@@ -16,6 +18,7 @@ import { USER_GETTER, USER_ACTION } from "./store/storeconstants";
 export default {
   name: "App",
   components: {
+    SideBar,
     Footer,
     TheLoader,
   },

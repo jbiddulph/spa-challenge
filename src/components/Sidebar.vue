@@ -1,11 +1,5 @@
 <template>
-  <div
-    :class="[
-      showSidebar
-        ? 'flex flex-col w-12 h-12 fixed'
-        : 'flex flex-col w-12 h-12 fixed',
-    ]"
-  >
+  <div :class="[showSidebar ? 'w-auto' : '']">
     <button @click="showMenu()">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -25,7 +19,7 @@
     <div
       :class="[
         showSidebar
-          ? 'bg-gray-700 text-gray-100 space-y-6 px-2 py-4 min-h-screen md:-translate-x-0 transform transition duration-200 ease-in-out -translate-x-0 w-64 fixed top-12'
+          ? 'bg-gray-700 text-gray-100 space-y-6 px-2 py-4 min-h-screen md:-translate-x-0 transform transition duration-200 ease-in-out -translate-x-0 w-64 rounded-r-lg border-red-600 border-t-4'
           : 'bg-gray-700 text-gray-100 space-y-6 px-2 py-4 h-10 md:w-0 transform -translate-x-full w-0 hidden',
       ]"
     >

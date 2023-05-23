@@ -1,7 +1,7 @@
 <template>
   <button
     :class="{
-      'rounded p-1 px-2 disabled:cursor-not-allowed text-sm': true,
+      'ml-4 rounded p-1 px-2 disabled:cursor-not-allowed text-sm': true,
       'bg-dark-green hover:bg-light-green text-white': type === 'primary',
       'bg-black text-white': type === 'secondary',
       'bg-white text-black border-2 text-center justify-center mt-4':

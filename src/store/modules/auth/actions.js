@@ -2,10 +2,12 @@ import {
   SIGNUP_ACTION,
   LOGIN_ACTION,
   USER_ACTION,
+  UPDATE_USER_ACTION,
   SET_USER_MUTATION,
   SET_USER_TOKEN_DATA_MUTATION,
   LOGOUT_ACTION,
   AUTH_ACTION,
+  UPDATE_ACTION,
   AUTO_LOGIN_ACTION,
   AUTO_LOGOUT_ACTION,
   SET_AUTO_LOGOUT_MUTATION,
@@ -43,6 +45,12 @@ export default {
       url: "register",
     });
   },
+  async [UPDATE_USER_ACTION](context, payload) {
+    return context.dispatch(UPDATE_ACTION, {
+      ...payload,
+      url: `user/${payload.user.id}`,
+    });
+  },
   [USER_ACTION](context, payload) {
     context.commit(SET_USER_MUTATION, payload);
   },
@@ -66,6 +74,10 @@ export default {
       name: payload.name,
       email: payload.email,
       password: payload.password,
+      hasGallery: payload.hasGallery,
+      hasContacts: payload.hasContacts,
+      hasCompanies: payload.hasCompanies,
+      hasTodos: payload.hasTodos,
       returnSecureToken: true,
     };
     let response = "";
@@ -91,6 +103,24 @@ export default {
       };
       localStorage.setItem("userData", JSON.stringify(tokenData));
       context.commit(SET_USER_TOKEN_DATA_MUTATION, tokenData);
+    }
+  },
+  async [UPDATE_ACTION](context, payload) {
+    let data = {
+      hasGallery: payload.hasGallery,
+      hasContacts: payload.hasContacts,
+      hasCompanies: payload.hasCompanies,
+      hasTodos: payload.hasTodos,
+    };
+    let response = "";
+    try {
+      response = await axios.post(payload.url, data);
+    } catch (error) {
+      throw error;
+    }
+    if (response.status === 200) {
+      console.log("ResponseJB: ", response);
+      context.dispatch(USER_ACTION, data);
     }
   },
 };

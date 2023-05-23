@@ -1,42 +1,38 @@
 <template>
-  <SideBar />
-  <div>
-    <div :class="{ 'is-loading': isLoading }">&nbsp;</div>
-    <div v-if="!isLoading" class="container max-w-6xl mx-auto my-20">
-      <div class="flex justify-between mx-8 md:mx-4 mb-4">
-        <h2 v-show="!isLoading" class="text-4xl text-center">Contacts</h2>
+  <div :class="{ 'is-loading': isLoading }">&nbsp;</div>
+  <div v-if="!isLoading">
+    <div class="flex justify-between mx-8 md:mx-4 mb-4 mt-4">
+      <h2 v-show="!isLoading" class="text-4xl text-center">Contacts</h2>
 
-        <AppButton
-          type="secondary"
-          :processing="isLoading"
-          @click.prevent="isOpen = true"
-        >
-          Add New Contact
-        </AppButton>
-      </div>
-      <ListItems :listItems="contacts.data" type="contact" />
-      <Pagination
-        class="w-80 md:w-auto"
-        :data="contacts"
-        @pagination-change-page="getPaginatedContacts"
+      <AppButton
+        type="secondary"
+        :processing="isLoading"
+        @click.prevent="isOpen = true"
       >
-        <template #prev-nav>
-          <span>&#x2190;&nbsp;</span>
-        </template>
-        <template #next-nav>
-          <span>&nbsp;&#x2192;</span>
-        </template>
-      </Pagination>
-      <ModalWindow :open="isOpen" @close="closeModal()">
-        <AddEditForm @close="closeModal()" @added-contact="updateContactList" />
-      </ModalWindow>
+        Add New Contact
+      </AppButton>
     </div>
+    <ListItems :listItems="contacts.data" type="contact" />
+    <Pagination
+      class="w-80 md:w-auto"
+      :data="contacts"
+      @pagination-change-page="getPaginatedContacts"
+    >
+      <template #prev-nav>
+        <span>&#x2190;&nbsp;</span>
+      </template>
+      <template #next-nav>
+        <span>&nbsp;&#x2192;</span>
+      </template>
+    </Pagination>
+    <ModalWindow :open="isOpen" @close="closeModal()">
+      <AddEditForm @close="closeModal()" @added-contact="updateContactList" />
+    </ModalWindow>
   </div>
 </template>
 
 <script>
 import { ref } from "vue";
-import SideBar from "@/components/Sidebar.vue";
 import AppButton from "@/components/AppButton.vue";
 import axios from "axios";
 import ListItems from "@/components/ListItems.vue";
@@ -48,7 +44,6 @@ import { GET_USER_TOKEN_GETTER } from "@/store/storeconstants";
 export default {
   name: "ContactPage",
   components: {
-    SideBar,
     AppButton,
     ListItems,
     Pagination: LaravelVuePagination,
