@@ -14,6 +14,13 @@
     </div>
     <div class="flex flex-row items-center justify-between" v-if="todo.id">
       <AppButton
+        type="edit"
+        :processing="isLoading"
+        @click.prevent="editTodo(todo.id)"
+        data-element="button"
+        >Edit&nbsp;&nbsp;<i class="fa-solid fa-pencil"></i
+      ></AppButton>
+      <AppButton
         type="delete"
         :processing="isLoading"
         @click.prevent="deleteTodo(todo.id)"
@@ -21,6 +28,14 @@
         >Delete&nbsp;&nbsp;<i class="fa-solid fa-trash"></i
       ></AppButton>
     </div>
+    <ModalWindow :open="isOpen" @close="closeModal()">
+      <AddTodoForm
+        :editing="isEdit"
+        :todoDetails="todoDetails"
+        @close="closeModal()"
+        :id="id"
+      />
+    </ModalWindow>
   </div>
 </template>
 
@@ -29,9 +44,13 @@ import Swal from "sweetalert2";
 import { ref } from "vue";
 import axios from "axios";
 import AppButton from "@/components/AppButton.vue";
+import ModalWindow from "@/components/ModalWindow.vue";
+import AddTodoForm from "@/components/todo/AddTodoForm.vue";
 export default {
   components: {
     AppButton,
+    ModalWindow,
+    AddTodoForm,
   },
   name: "ContactDetails",
   props: {
@@ -63,6 +82,12 @@ export default {
           this.$emit("remove");
         }
       });
+    },
+    editTodo(id) {
+      if (id) {
+        this.isOpen = true;
+        this.isEdit = true;
+      }
     },
     closeModal() {
       this.isOpen = !this.isOpen;

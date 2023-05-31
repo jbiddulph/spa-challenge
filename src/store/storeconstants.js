@@ -18,7 +18,9 @@ export const USER_GETTER = "[getters] user";
 export const USER_ID_GETTER = "[getters] user id";
 // Todo
 export const TODO_ACTION = "[actions] action todo";
+export const TODO_ACTION_UPDATE = "[actions] action update todo";
 export const TODO_POST = "[actions] post todo";
+export const TODO_UPDATE = "[actions] update todo";
 export const TODOS_GETTER = "[getters] todos";
 export const TODO_SET_ACTION = "[actions] set action todo";
 export const SET_TODO_MUTATION = "[mutations] set todo mutation";
